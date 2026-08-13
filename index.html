@@ -661,6 +661,216 @@ button{font:inherit}
   }
   .clock strong{font-size:42px}
 }
+/* =========================================================
+   GALLERY IMAGE FIX
+   ========================================================= */
+
+.photo-card {
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:min(380px,70vw);
+  height:480px;
+
+  transform-style:preserve-3d;
+
+  border:1px solid #d9ad6255;
+  border-radius:22px;
+  overflow:hidden;
+
+  background:#1c1016;
+
+  box-shadow:
+    0 35px 90px #0009,
+    inset 0 0 30px #d9ad6210;
+
+  transition:
+    transform .7s cubic-bezier(.2,.7,.2,1),
+    box-shadow .5s ease;
+}
+
+/* IMPORTANT:
+   Don't let the image get hidden behind the fallback */
+.photo-card img {
+  display:block;
+  position:relative;
+  z-index:2;
+
+  width:100%;
+  height:100%;
+
+  object-fit:cover;
+
+  opacity:1;
+
+  background:#1c1016;
+
+  transition:
+    transform .8s ease,
+    opacity .5s ease;
+}
+
+/* Nice zoom */
+.photo-card:hover img {
+  transform:scale(1.04);
+}
+
+/* Fallback sits underneath the real image */
+.image-fallback {
+  position:absolute;
+  inset:0;
+
+  z-index:1;
+
+  display:grid;
+  place-items:center;
+
+  align-content:center;
+  gap:12px;
+
+  text-align:center;
+
+  background:
+    radial-gradient(
+      circle at center,
+      #6b3044,
+      #160910 75%
+    );
+
+  color:#fff;
+}
+
+.image-fallback span {
+  font-size:60px;
+}
+
+.image-fallback strong {
+  font:400 38px 'Great Vibes';
+  color:#d9ad62;
+}
+
+.image-fallback small {
+  font-size:9px;
+  letter-spacing:3px;
+  color:#c9b6ba;
+}
+
+/* If image fails, fallback becomes visible */
+.photo-card.image-error img {
+  display:none;
+}
+
+.photo-card.image-error .image-fallback {
+  z-index:5;
+}
+
+/* Third card */
+.memory-card {
+  position:absolute;
+  inset:0;
+
+  display:grid;
+  place-items:center;
+  align-content:center;
+  gap:18px;
+
+  text-align:center;
+
+  background:
+    radial-gradient(
+      circle at center,
+      #5b2939,
+      #140910 75%
+    );
+}
+
+.memory-initials {
+  font:65px 'Great Vibes';
+  color:#d9ad62;
+
+  text-shadow:
+    0 0 30px #d9ad6244;
+}
+
+.memory-date {
+  font-size:10px;
+  letter-spacing:4px;
+  color:#c9b6ba;
+}
+
+.memory-heart {
+  color:#b86d75;
+  font-size:35px;
+
+  animation:
+    heartBeat 1.5s infinite;
+}
+
+@keyframes heartBeat {
+  0%,100% {
+    transform:scale(1);
+  }
+
+  50% {
+    transform:scale(1.25);
+  }
+}
+
+/* Gallery depth */
+.photo-card:nth-child(1) {
+  transform:
+    translate(-50%,-50%)
+    rotateY(-22deg)
+    translateZ(100px);
+}
+
+.photo-card:nth-child(2) {
+  transform:
+    translate(-50%,-50%)
+    rotateY(22deg)
+    translateZ(40px);
+}
+
+.photo-card:nth-child(3) {
+  transform:
+    translate(-50%,-50%)
+    translateZ(180px);
+}
+
+/* Mobile */
+@media(max-width:800px) {
+
+  .gallery-stage {
+    height:500px;
+  }
+
+  .photo-card {
+    height:410px;
+  }
+
+  .photo-card:nth-child(1) {
+    transform:
+      translate(-50%,-50%)
+      rotateY(-15deg)
+      translateZ(30px)
+      scale(.9);
+  }
+
+  .photo-card:nth-child(2) {
+    transform:
+      translate(-50%,-50%)
+      rotateY(15deg)
+      translateZ(20px)
+      scale(.9);
+  }
+
+  .photo-card:nth-child(3) {
+    transform:
+      translate(-50%,-50%)
+      translateZ(80px)
+      scale(.92);
+  }
+}
 </style>
 </head>
 
@@ -767,73 +977,82 @@ button{font:inherit}
 <!-- ======================================================
      05 — GALLERY
      ====================================================== -->
-<section class="section gallery-scene">
-  <div class="panel reveal">
+/* =========================================================
+   3D GALLERY
+   ========================================================= */
 
-    <div class="label">05 — Our moments</div>
-    <h2 class="title">A glimpse of us</h2>
+const galleryStage = document.getElementById('galleryStage');
 
-    <div class="gallery-stage" id="galleryStage">
+if (galleryStage) {
 
-      <!-- COUPLE IMAGE -->
-      <div class="photo-card">
-        <div class="photo-frame">
-          <img
-            src="./images/couple.JPG"
-            alt="Rakesh and Sravani"
-            loading="eager"
-            onerror="this.style.display='none';this.parentElement.classList.add('image-error')"
-          >
+  const cards = galleryStage.querySelectorAll('.photo-card');
 
-          <div class="image-error-message">
-            <div>
-              R &amp; S
-              <small>COUPLE PHOTO</small>
-            </div>
-          </div>
-        </div>
-      </div>
+  function moveGallery(e) {
 
-      <!-- RINGS IMAGE -->
-      <div class="photo-card">
-        <div class="photo-frame">
-          <img
-            src="./images/rings.JPG"
-            alt="Wedding rings"
-            loading="eager"
-            onerror="this.style.display='none';this.parentElement.classList.add('image-error')"
-          >
+    const rect = galleryStage.getBoundingClientRect();
 
-          <div class="image-error-message">
-            <div>
-              💍
-              <small>WEDDING RINGS</small>
-            </div>
-          </div>
-        </div>
-      </div>
+    const x =
+      (e.clientX - rect.left) /
+      rect.width - 0.5;
 
-      <!-- MEMORY CARD -->
-      <div class="photo-card memory-card">
-        <div class="memory-content">
-          <div class="memory-script">R &amp; S</div>
-          <div class="memory-date">23 AUGUST 2026</div>
-          <div class="memory-line"></div>
-          <div class="memory-text">
-            TWO HEARTS<br>
-            ONE BEAUTIFUL STORY
-          </div>
-        </div>
-      </div>
+    const y =
+      (e.clientY - rect.top) /
+      rect.height - 0.5;
 
-    </div>
+    cards.forEach((card, index) => {
 
-    <div class="gallery-note">
-      Move your mouse across the gallery — the frames move in 3D.
-    </div>
+      const baseY =
+        index === 0 ? -22 :
+        index === 1 ? 22 : 0;
 
-  </div>
-</section>
+      const baseZ =
+        index === 0 ? 100 :
+        index === 1 ? 40 : 180;
+
+      const rotateY =
+        baseY + x * 35;
+
+      const rotateX =
+        -y * 18;
+
+      card.style.transform =
+        `translate(-50%,-50%)
+         rotateY(${rotateY}deg)
+         rotateX(${rotateX}deg)
+         translateZ(${baseZ}px)`;
+    });
+  }
+
+  galleryStage.addEventListener(
+    'pointermove',
+    moveGallery
+  );
+
+  galleryStage.addEventListener(
+    'pointerleave',
+    () => {
+
+      cards.forEach((card,index) => {
+
+        const baseY =
+          index === 0 ? -22 :
+          index === 1 ? 22 : 0;
+
+        const baseZ =
+          index === 0 ? 100 :
+          index === 1 ? 40 : 180;
+
+        card.style.transform =
+          `translate(-50%,-50%)
+           rotateY(${baseY}deg)
+           rotateX(0deg)
+           translateZ(${baseZ}px)`;
+      });
+
+    }
+  );
+
+}
 
 <section class="section venue">
   <div class="panel reveal">
