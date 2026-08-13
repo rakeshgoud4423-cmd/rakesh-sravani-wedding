@@ -1,1998 +1,2094 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Rakesh & Sravani — An Immersive Wedding</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#351923" />
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Great+Vibes&family=Montserrat:wght@400;500;600&family=Noto+Serif+Telugu:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <title>Rakesh & Sravani | Wedding Invitation</title>
 
-<style>
-:root{
-  --wine:#351923;
-  --deep:#11070c;
-  --cream:#fff8ef;
-  --gold:#d9ad62;
-  --rose:#b86d75;
-  --muted:#8f7379;
-  --telugu:'Noto Serif Telugu',serif;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{
-  font-family:Montserrat,sans-serif;
-  background:var(--deep);
-  color:#fff;
-  overflow-x:hidden;
-}
-a{color:inherit}
-button{font:inherit}
-#webgl{
-  position:fixed;
-  inset:0;
-  width:100%;
-  height:100%;
-  z-index:-2;
-}
-#grain{
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  z-index:20;
-  opacity:.07;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
-}
-.intro{
-  position:fixed;
-  inset:0;
-  z-index:100;
-  display:grid;
-  place-items:center;
-  background:#090408;
-  transition:1.2s;
-}
-.intro.hide{
-  opacity:0;
-  visibility:hidden;
-  pointer-events:none;
-}
-.intro .core{
-  text-align:center;
-  position:relative;
-  z-index:2;
-  padding:20px;
-}
-.intro .mini{
-  letter-spacing:6px;
-  font-size:10px;
-  color:#e8c987;
-  text-transform:uppercase;
-}
-.intro h1{
-  font:400 clamp(70px,13vw,145px) 'Great Vibes';
-  margin:14px 0;
-}
-.intro p{
-  font:22px 'Cormorant Garamond';
-  color:#eadbd2;
-}
-.open{
-  margin-top:35px;
-  padding:15px 32px;
-  border:1px solid var(--gold);
-  background:rgba(217,173,98,.08);
-  color:#fff;
-  border-radius:99px;
-  letter-spacing:3px;
-  font-size:10px;
-  cursor:pointer;
-}
-.open:hover{
-  background:var(--gold);
-  color:var(--wine);
-}
-.hud{
-  position:fixed;
-  top:20px;
-  left:20px;
-  right:20px;
-  z-index:30;
-  display:flex;
-  justify-content:space-between;
-  pointer-events:none;
-}
-.hud>*{pointer-events:auto}
-.progress{
-  position:fixed;
-  left:0;
-  top:0;
-  height:3px;
-  width:0;
-  background:var(--gold);
-  z-index:40;
-  box-shadow:0 0 18px var(--gold);
-}
-.music{
-  border:1px solid #ffffff33;
-  background:#120a0dcc;
-  color:#fff;
-  width:44px;
-  height:44px;
-  border-radius:50%;
-  cursor:pointer;
-}
-.scene-no{
-  font-size:9px;
-  letter-spacing:3px;
-  color:#e8c987;
-  background:#120a0dcc;
-  border:1px solid #ffffff20;
-  padding:13px 16px;
-  border-radius:99px;
-}
-.hero{
-  min-height:100svh;
-  display:grid;
-  place-items:center;
-  text-align:center;
-  position:relative;
-  padding:40px 7%;
-}
-.hero-content{max-width:1000px}
-.eyebrow,.label{
-  font-size:10px;
-  letter-spacing:5px;
-  text-transform:uppercase;
-  color:#efd18d;
-}
-.hero h1{
-  font:400 clamp(82px,15vw,175px)/.78 'Great Vibes';
-  margin:22px 0;
-  text-shadow:0 0 50px #d9ad6244;
-}
-.hero .date{
-  font:400 27px 'Cormorant Garamond';
-  letter-spacing:4px;
-}
-.hero .place{
-  margin-top:12px;
-  font-size:10px;
-  letter-spacing:4px;
-  text-transform:uppercase;
-  color:#c9b6ba;
-}
-.scroll{
-  position:absolute;
-  bottom:30px;
-  font-size:9px;
-  letter-spacing:4px;
-  text-transform:uppercase;
-  color:#d9ad62;
-  animation:bob 2s infinite;
-}
-.hero .hint{
-  margin-top:38px;
-  font-size:10px;
-  color:#c9b6ba;
-  letter-spacing:2px;
-}
-.section{
-  min-height:100svh;
-  padding:120px 7%;
-  display:grid;
-  place-items:center;
-  position:relative;
-}
-.panel{
-  width:min(1100px,100%);
-  text-align:center;
-}
-.title{
-  font:500 clamp(52px,7vw,92px)/.9 'Cormorant Garamond';
-  margin:15px 0;
-}
-.copy{
-  max-width:760px;
-  margin:25px auto;
-  color:#c9b6ba;
-  font:400 22px/1.7 'Cormorant Garamond';
-}
-.story-grid{
-  display:grid;
-  grid-template-columns:1fr 100px 1fr;
-  align-items:center;
-  max-width:900px;
-  margin:65px auto 0;
-  gap:20px;
-}
-.person h3{
-  font:500 42px 'Cormorant Garamond';
-}
-.person p{
-  color:#a58d93;
-  font-size:10px;
-  line-height:1.8;
-  letter-spacing:1px;
-  text-transform:uppercase;
-}
-.amp{
-  font:65px 'Great Vibes';
-  color:var(--gold);
-}
-.timeline{
-  margin:60px auto 0;
-  max-width:900px;
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:18px;
-}
-.milestone{
-  border:1px solid #d9ad6230;
-  background:#ffffff08;
-  padding:30px;
-  border-radius:24px;
-  transform-style:preserve-3d;
-  transition:.4s;
-}
-.milestone:hover{
-  transform:translateY(-10px) rotateX(5deg);
-}
-.milestone .num{
-  font:50px 'Cormorant Garamond';
-  color:var(--gold);
-}
-.milestone h3{
-  font:28px 'Cormorant Garamond';
-  margin:8px;
-}
-.milestone p{
-  color:#bdaeb2;
-  font-size:12px;
-  line-height:1.7;
-}
-.count-wrap{
-  display:flex;
-  justify-content:center;
-  gap:16px;
-  flex-wrap:wrap;
-  margin-top:55px;
-}
-.clock{
-  width:145px;
-  height:145px;
-  border:1px solid #d9ad6255;
-  border-radius:50%;
-  display:grid;
-  place-items:center;
-  background:radial-gradient(circle,#ffffff10,#00000022);
-  box-shadow:inset 0 0 35px #d9ad6214,0 0 30px #d9ad6208;
-}
-.clock strong{
-  font:400 50px 'Cormorant Garamond';
-}
-.clock span{
-  display:block;
-  font-size:8px;
-  letter-spacing:3px;
-  color:#c9b6ba;
-  text-transform:uppercase;
-}
-.events{
-  background:linear-gradient(#351923ee,#1a0b12ee);
-}
-.event-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:25px;
-  max-width:900px;
-  margin:55px auto;
-}
-.event{
-  min-height:330px;
-  border:1px solid #d9ad6235;
-  border-radius:28px;
-  padding:45px 28px;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  background:linear-gradient(135deg,#ffffff0a,#ffffff02);
-  transition:.4s;
-}
-.event:hover{
-  transform:translateY(-10px);
-  box-shadow:0 30px 70px #0006;
-}
-.event .icon{font-size:48px}
-.event h3{
-  font:500 48px 'Cormorant Garamond';
-  margin:15px;
-}
-.event .date{
-  color:var(--gold);
-  font-size:10px;
-  letter-spacing:2px;
-}
-.event p{
-  color:#c4b4b8;
-  font:18px/1.7 'Cormorant Garamond';
-  margin-top:18px;
-}
+  <!-- Fonts -->
 
-/* ================================
-   FIXED 3D GALLERY
-================================ */
-.gallery-scene{overflow:hidden}
-.gallery-stage{
-  height:560px;
-  position:relative;
-  perspective:1400px;
-  margin-top:50px;
-  transform-style:preserve-3d;
-}
-.photo-card{
-  position:absolute;
-  left:50%;
-  top:50%;
-  width:min(380px,70vw);
-  height:480px;
-  transform-style:preserve-3d;
-  border:1px solid #d9ad6255;
-  border-radius:22px;
-  overflow:hidden;
-  background:#1c1016;
-  box-shadow:0 35px 90px #0009,0 0 40px #d9ad6215;
-  transition:transform .7s cubic-bezier(.2,.8,.2,1),box-shadow .5s ease;
-}
-.photo-card:hover{
-  box-shadow:0 45px 110px #000b,0 0 60px #d9ad6230;
-}
-.photo-frame{
-  width:100%;
-  height:100%;
-  position:relative;
-  overflow:hidden;
-  background:radial-gradient(circle at center,#5b2939,#140910);
-}
-.photo-frame img{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  display:block;
-  object-fit:cover;
-  opacity:1;
-  transition:transform 1s ease,opacity .5s ease;
-}
-.photo-card:hover img{transform:scale(1.06)}
-.image-error-message{
-  position:absolute;
-  inset:0;
-  display:none;
-  place-items:center;
-  text-align:center;
-  color:#d9ad62;
-  background:radial-gradient(circle at center,#5b2939,#140910);
-  font:70px 'Great Vibes';
-}
-.image-error-message small{
-  display:block;
-  margin-top:10px;
-  font-family:Montserrat,sans-serif;
-  font-size:9px;
-  letter-spacing:4px;
-  color:#c9b6ba;
-}
-.photo-frame.image-error .image-error-message{display:grid}
-.photo-card:nth-child(1){
-  transform:translate(-50%,-50%) rotateY(-22deg) translateZ(100px);
-  z-index:2;
-}
-.photo-card:nth-child(2){
-  transform:translate(-50%,-50%) rotateY(22deg) translateZ(40px);
-  z-index:1;
-}
-.photo-card:nth-child(3){
-  transform:translate(-50%,-50%) translateZ(180px);
-  z-index:3;
-}
-.memory-card{
-  background:radial-gradient(circle at center,#5b2939,#140910);
-}
-.memory-content{
-  width:100%;
-  height:100%;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  padding:30px;
-}
-.memory-script{
-  font:65px 'Great Vibes';
-  color:#d9ad62;
-  text-shadow:0 0 30px #d9ad6244;
-}
-.memory-date{
-  margin-top:15px;
-  font-size:11px;
-  letter-spacing:4px;
-  color:#c9b6ba;
-}
-.memory-line{
-  width:80px;
-  height:1px;
-  background:#d9ad62;
-  margin:25px 0;
-  opacity:.6;
-}
-.memory-text{
-  font-size:9px;
-  line-height:2;
-  letter-spacing:3px;
-  color:#c9b6ba;
-}
-.gallery-note{
-  margin-top:25px;
-  color:#c9b6ba;
-  font-size:11px;
-  letter-spacing:2px;
-}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-.venue{background:#080509}
-.venue-card{
-  margin:55px auto 0;
-  width:min(850px,100%);
-  border:1px solid #d9ad6250;
-  border-radius:30px;
-  padding:70px 25px;
-  background:radial-gradient(circle at center,#d9ad6212,#ffffff03);
-}
-.venue-card h3{
-  font:500 60px 'Cormorant Garamond';
-}
-.venue-card p{
-  color:#c9b6ba;
-  line-height:1.8;
-  margin:15px;
-}
-.map{
-  display:inline-block;
-  margin-top:20px;
-  padding:14px 26px;
-  border:1px solid var(--gold);
-  border-radius:99px;
-  text-decoration:none;
-  font-size:9px;
-  letter-spacing:2px;
-  text-transform:uppercase;
-}
-.telugu{
-  background:radial-gradient(circle at 50% 20%,#fff9e9,#f2d3a8);
-  color:#4a2028;
-  overflow:hidden;
-}
-.telugu .panel{max-width:1000px}
-.symbols{
-  display:flex;
-  justify-content:center;
-  gap:35px;
-  margin-bottom:20px;
-}
-.symbol{
-  width:78px;
-  height:78px;
-  border:1px solid #ae772d55;
-  border-radius:50%;
-  display:grid;
-  place-items:center;
-  font-size:40px;
-  background:#fff8e6;
-  box-shadow:0 10px 35px #78481e22;
-}
-.namam{
-  position:relative;
-  width:78px;
-  height:85px;
-}
-.namam:before,.namam:after{
-  content:'';
-  position:absolute;
-  width:22px;
-  height:67px;
-  background:#fff;
-  border:1px solid #d8c9aa;
-  border-radius:18px;
-  top:7px;
-}
-.namam:before{left:15px;transform:rotate(8deg)}
-.namam:after{right:15px;transform:rotate(-8deg)}
-.namam i{
-  position:absolute;
-  width:12px;
-  height:58px;
-  background:#b52d35;
-  border-radius:10px;
-  left:33px;
-  top:14px;
-  z-index:2;
-}
-.namam b{
-  position:absolute;
-  width:34px;
-  height:8px;
-  background:#c18a35;
-  border-radius:50%;
-  bottom:4px;
-  left:22px;
-  z-index:3;
-}
-.mantra,.telugu-text{font-family:var(--telugu)}
-.mantra{color:#9d5b28;font-size:17px}
-.shree{
-  font:68px var(--telugu);
-  color:#b88932;
-  margin-top:25px;
-}
-.telugu h2{
-  font:600 clamp(40px,7vw,70px) var(--telugu);
-  color:#7e2632;
-}
-.sloka{
-  font:20px/2 var(--telugu);
-  margin:25px auto;
-  color:#68454a;
-}
-.telugu-text{
-  font-size:19px;
-  line-height:2.1;
-  color:#76575b;
-}
-.telugu-names{
-  font:600 clamp(42px,7vw,68px) var(--telugu);
-  color:#8e2635;
-  margin:15px;
-}
-.telugu-names span{
-  font-size:24px;
-  color:#b88932;
-  margin:0 14px;
-}
-.muhurtham{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  max-width:850px;
-  margin:40px auto;
-  border-top:1px solid #8e263544;
-  border-bottom:1px solid #8e263544;
-}
-.muhurtham>div{padding:25px 15px}
-.muhurtham>div+div{border-left:1px solid #8e263533}
-.muhurtham span{
-  display:block;
-  color:#a66b35;
-  font-size:13px;
-  margin-bottom:8px;
-}
-.muhurtham strong{
-  font:600 16px var(--telugu);
-}
-.bless{
-  margin-top:30px;
-  font:17px/2 var(--telugu);
-  color:#9a6530;
-}
-.final{
-  min-height:100svh;
-  display:grid;
-  place-items:center;
-  text-align:center;
-  position:relative;
-  overflow:hidden;
-}
-.final h2{
-  font:400 clamp(70px,13vw,150px) 'Great Vibes';
-  color:var(--gold);
-  text-shadow:0 0 50px #d9ad6244;
-}
-.final p{
-  font-size:10px;
-  letter-spacing:4px;
-  color:#c9b6ba;
-  margin-top:20px;
-  text-transform:uppercase;
-}
-.replay{
-  margin-top:35px;
-  background:transparent;
-  border:1px solid #d9ad6266;
-  color:#fff;
-  border-radius:99px;
-  padding:13px 25px;
-  font-size:9px;
-  letter-spacing:3px;
-  cursor:pointer;
-}
-.reveal{
-  opacity:0;
-  transform:translateY(40px);
-  transition:1s ease;
-}
-.reveal.show{
-  opacity:1;
-  transform:none;
-}
-.small-note{
-  font-size:9px;
-  color:#a58d93;
-  margin-top:30px;
-  letter-spacing:1px;
-}
-@keyframes bob{50%{transform:translateY(8px)}}
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Great+Vibes&family=Montserrat:wght@400;500;600&family=Noto+Serif+Telugu:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
 
-@media(max-width:800px){
-  .story-grid,.event-grid,.timeline{grid-template-columns:1fr}
-  .amp{font-size:45px}
-  .muhurtham{grid-template-columns:1fr}
-  .muhurtham>div+div{
-    border-left:0;
-    border-top:1px solid #8e263533;
-  }
-  .gallery-stage{height:500px}
-  .photo-card{
-    width:min(330px,78vw);
-    height:410px;
-  }
-  .photo-card:nth-child(1){
-    transform:translate(-50%,-50%) rotateY(-15deg) translateZ(30px) scale(.9);
-  }
-  .photo-card:nth-child(2){
-    transform:translate(-50%,-50%) rotateY(15deg) translateZ(20px) scale(.9);
-  }
-  .photo-card:nth-child(3){
-    transform:translate(-50%,-50%) translateZ(80px) scale(.92);
-  }
-  .venue-card h3{font-size:46px}
-  .clock{
-    width:120px;
-    height:120px;
-  }
-  .clock strong{font-size:42px}
-}
-/* =========================================================
-   GALLERY IMAGE FIX
-   ========================================================= */
+  <style>
 
-.photo-card {
-  position:absolute;
-  left:50%;
-  top:50%;
-  width:min(380px,70vw);
-  height:480px;
+    :root {
+      --wine: #351923;
+      --deep: #1d1015;
+      --cream: #fff8ef;
+      --gold: #d9ad62;
+      --dark-gold: #a96f2d;
+      --rose: #b86d75;
+      --red: #8e2635;
+      --muted: #8f7379;
+      --telugu: "Noto Serif Telugu", serif;
+    }
 
-  transform-style:preserve-3d;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-  border:1px solid #d9ad6255;
-  border-radius:22px;
-  overflow:hidden;
+    html {
+      scroll-behavior: smooth;
+    }
 
-  background:#1c1016;
+    body {
+      background: var(--cream);
+      color: var(--wine);
+      font-family: "Montserrat", sans-serif;
+      overflow-x: hidden;
+    }
 
-  box-shadow:
-    0 35px 90px #0009,
-    inset 0 0 30px #d9ad6210;
 
-  transition:
-    transform .7s cubic-bezier(.2,.7,.2,1),
-    box-shadow .5s ease;
-}
+    /* =====================================================
+       INTRO
+    ===================================================== */
 
-/* IMPORTANT:
-   Don't let the image get hidden behind the fallback */
-.photo-card img {
-  display:block;
-  position:relative;
-  z-index:2;
+    .intro {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
 
-  width:100%;
-  height:100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-  object-fit:cover;
+      background:
+        radial-gradient(
+          circle at center,
+          #572c3b 0%,
+          #29141d 60%,
+          #13080d 100%
+        );
 
-  opacity:1;
+      color: white;
+      text-align: center;
 
-  background:#1c1016;
+      transition: 1s ease;
+    }
 
-  transition:
-    transform .8s ease,
-    opacity .5s ease;
-}
+    .intro.hide {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
 
-/* Nice zoom */
-.photo-card:hover img {
-  transform:scale(1.04);
-}
+    .intro-content {
+      position: relative;
+      padding: 30px;
+      animation: rise 1.4s ease both;
+    }
 
-/* Fallback sits underneath the real image */
-.image-fallback {
-  position:absolute;
-  inset:0;
+    .intro-content::before,
+    .intro-content::after {
+      content: "✦";
+      position: absolute;
+      top: 50%;
+      color: var(--gold);
+      font-size: 25px;
+    }
 
-  z-index:1;
+    .intro-content::before {
+      left: -10px;
+    }
 
-  display:grid;
-  place-items:center;
+    .intro-content::after {
+      right: -10px;
+    }
 
-  align-content:center;
-  gap:12px;
+    .intro small {
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      color: #e8c987;
+      font-size: 11px;
+    }
 
-  text-align:center;
+    .intro h1 {
+      font-family: "Great Vibes", cursive;
+      font-size: clamp(65px, 13vw, 125px);
+      font-weight: 400;
+      margin: 12px 0;
+    }
 
-  background:
-    radial-gradient(
-      circle at center,
-      #6b3044,
-      #160910 75%
-    );
+    .intro p {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 21px;
+      color: #eadbd2;
+    }
 
-  color:#fff;
-}
+    .open-btn {
+      margin-top: 38px;
 
-.image-fallback span {
-  font-size:60px;
-}
+      border: 1px solid var(--gold);
+      background: transparent;
+      color: white;
 
-.image-fallback strong {
-  font:400 38px 'Great Vibes';
-  color:#d9ad62;
-}
+      padding: 15px 34px;
+      border-radius: 40px;
 
-.image-fallback small {
-  font-size:9px;
-  letter-spacing:3px;
-  color:#c9b6ba;
-}
+      letter-spacing: 3px;
+      font-size: 11px;
 
-/* If image fails, fallback becomes visible */
-.photo-card.image-error img {
-  display:none;
-}
+      cursor: pointer;
+      transition: .3s;
+    }
 
-.photo-card.image-error .image-fallback {
-  z-index:5;
-}
+    .open-btn:hover {
+      background: var(--gold);
+      color: var(--wine);
+      transform: translateY(-2px);
+    }
 
-/* Third card */
-.memory-card {
-  position:absolute;
-  inset:0;
 
-  display:grid;
-  place-items:center;
-  align-content:center;
-  gap:18px;
+    /* =====================================================
+       HERO
+    ===================================================== */
 
-  text-align:center;
+    .hero {
+      min-height: 100vh;
 
-  background:
-    radial-gradient(
-      circle at center,
-      #5b2939,
-      #140910 75%
-    );
-}
+      position: relative;
 
-.memory-initials {
-  font:65px 'Great Vibes';
-  color:#d9ad62;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-  text-shadow:
-    0 0 30px #d9ad6244;
-}
+      text-align: center;
 
-.memory-date {
-  font-size:10px;
-  letter-spacing:4px;
-  color:#c9b6ba;
-}
+      overflow: hidden;
 
-.memory-heart {
-  color:#b86d75;
-  font-size:35px;
+      background:
+        linear-gradient(
+          180deg,
+          rgba(38,17,25,.22),
+          rgba(38,17,25,.82)
+        ),
+        url("https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=2000&q=90")
+        center/cover;
 
-  animation:
-    heartBeat 1.5s infinite;
-}
+      color: white;
+    }
 
-@keyframes heartBeat {
-  0%,100% {
-    transform:scale(1);
-  }
+    .hero::before {
+      content: "";
 
-  50% {
-    transform:scale(1.25);
-  }
-}
+      position: absolute;
+      inset: 25px;
 
-/* Gallery depth */
-.photo-card:nth-child(1) {
-  transform:
-    translate(-50%,-50%)
-    rotateY(-22deg)
-    translateZ(100px);
-}
+      border: 1px solid rgba(235,205,144,.55);
 
-.photo-card:nth-child(2) {
-  transform:
-    translate(-50%,-50%)
-    rotateY(22deg)
-    translateZ(40px);
-}
+      pointer-events: none;
+    }
 
-.photo-card:nth-child(3) {
-  transform:
-    translate(-50%,-50%)
-    translateZ(180px);
-}
+    .hero-content {
+      position: relative;
+      z-index: 2;
 
-/* Mobile */
-@media(max-width:800px) {
+      padding: 30px;
 
-  .gallery-stage {
-    height:500px;
-  }
+      animation: rise 1.3s ease both;
+    }
 
-  .photo-card {
-    height:410px;
-  }
+    .eyebrow {
+      letter-spacing: 7px;
+      text-transform: uppercase;
 
-  .photo-card:nth-child(1) {
-    transform:
-      translate(-50%,-50%)
-      rotateY(-15deg)
-      translateZ(30px)
-      scale(.9);
-  }
+      font-size: 11px;
+      color: #efd18d;
+    }
 
-  .photo-card:nth-child(2) {
-    transform:
-      translate(-50%,-50%)
-      rotateY(15deg)
-      translateZ(20px)
-      scale(.9);
-  }
+    .hero h1 {
+      font-family: "Great Vibes", cursive;
 
-  .photo-card:nth-child(3) {
-    transform:
-      translate(-50%,-50%)
-      translateZ(80px)
-      scale(.92);
-  }
-}
-</style>
+      font-size: clamp(75px, 14vw, 150px);
+
+      font-weight: 400;
+      line-height: .9;
+
+      margin: 20px 0;
+    }
+
+    .hero-date {
+      font-family: "Cormorant Garamond", serif;
+
+      font-size: 26px;
+      letter-spacing: 3px;
+    }
+
+    .hero-location {
+      margin-top: 12px;
+
+      font-size: 11px;
+      letter-spacing: 3px;
+
+      text-transform: uppercase;
+    }
+
+    .scroll {
+      position: absolute;
+      bottom: 25px;
+
+      font-size: 10px;
+      letter-spacing: 4px;
+
+      text-transform: uppercase;
+
+      opacity: .8;
+    }
+
+
+    /* =====================================================
+       COMMON
+    ===================================================== */
+
+    section {
+      padding: 110px 7%;
+      text-align: center;
+    }
+
+    .label {
+      color: var(--rose);
+
+      font-size: 10px;
+      letter-spacing: 4px;
+
+      text-transform: uppercase;
+
+      margin-bottom: 15px;
+    }
+
+    .section-title {
+      font-family: "Cormorant Garamond", serif;
+
+      font-size: clamp(42px, 6vw, 68px);
+
+      font-weight: 500;
+      line-height: 1;
+    }
+
+    .ornament {
+      color: var(--gold);
+
+      font-size: 25px;
+
+      margin: 22px 0;
+    }
+
+
+    /* =====================================================
+       STORY
+    ===================================================== */
+
+    .story {
+      background: var(--cream);
+    }
+
+    .story-text {
+      max-width: 650px;
+
+      margin: 30px auto;
+
+      color: #735d62;
+
+      font-family: "Cormorant Garamond", serif;
+
+      font-size: 22px;
+      line-height: 1.7;
+    }
+
+    .couple {
+      display: grid;
+
+      grid-template-columns: 1fr 100px 1fr;
+
+      max-width: 900px;
+
+      margin: 65px auto 0;
+
+      align-items: center;
+
+      gap: 20px;
+    }
+
+    .person h3 {
+      font-family: "Cormorant Garamond", serif;
+
+      font-size: 38px;
+      font-weight: 500;
+    }
+
+    .person p {
+      color: var(--muted);
+
+      font-size: 11px;
+      letter-spacing: 2px;
+
+      margin-top: 8px;
+
+      text-transform: uppercase;
+    }
+
+    .ampersand {
+      font-family: "Great Vibes", cursive;
+
+      font-size: 65px;
+
+      color: var(--gold);
+    }
+
+
+    /* =====================================================
+       COUNTDOWN
+    ===================================================== */
+
+    .countdown-section {
+      background: var(--wine);
+      color: white;
+    }
+
+    .countdown-section .label {
+      color: #dfb96e;
+    }
+
+    .countdown {
+      display: flex;
+
+      justify-content: center;
+
+      gap: clamp(15px, 5vw, 65px);
+
+      margin-top: 55px;
+
+      flex-wrap: wrap;
+    }
+
+    .time-box {
+      min-width: 90px;
+    }
+
+    .time-box strong {
+      display: block;
+
+      font-family: "Cormorant Garamond", serif;
+
+      font-size: clamp(45px, 7vw, 75px);
+
+      font-weight: 400;
+    }
+
+    .time-box span {
+      font-size: 9px;
+      letter-spacing: 3px;
+
+      color: #c9aeb3;
+
+      text-transform: uppercase;
+    }
+
+
+    /* =====================================================
+       EVENTS
+    ===================================================== */
+
+    .events {
+      background: #f5eadf;
+    }
+
+    .event-grid {
+      display: grid;
+
+      grid-template-columns: repeat(2, 1fr);
+
+      gap: 25px;
+
+      max-width: 850px;
+
+      margin: 55px auto 0;
+    }
+
+    .event {
+      padding: 45px 25px;
+
+      background: rgba(255,255,255,.58);
+
+      border: 1px solid rgba(177,124,83,.22);
+
+      position: relative;
+
+      transition: .35s;
+    }
+
+    .event:hover {
+      transform: translateY(-8px);
+
+      box-shadow:
+        0 20px 45px rgba(65,32,38,.12);
+    }
+
+    .event-icon {
+      font-size: 30px;
+
+      margin-bottom: 20px;
+    }
+
+    .event h3 {
+      font-family: "Cormorant Garamond", serif;
+
+      font-size: 34px;
+      font-weight: 500;
+    }
+
+    .event .date {
+      color: var(--rose);
+
+      margin: 12px 0;
+
+      font-size: 12px;
+      letter-spacing: 1px;
+    }
+
+    .event p {
+      color: #806b70;
+
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+
+    /* =====================================================
+       GALLERY
+    ===================================================== */
+
+    .gallery {
+      padding-left: 4%;
+      padding-right: 4%;
+    }
+
+    .gallery-grid {
+      display: grid;
+
+      grid-template-columns: 1.1fr .8fr .8fr;
+
+      grid-template-rows: 260px 260px;
+
+      gap: 12px;
+
+      max-width: 1200px;
+
+      margin: 55px auto 0;
+    }
+
+    .gallery-item {
+      overflow: hidden;
+
+      position: relative;
+    }
+
+    .gallery-item:first-child {
+      grid-row: span 2;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+
+      transition: .6s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.08);
+    }
+
+
+    /* =====================================================
+       VENUE
+    ===================================================== */
+
+    .venue {
+      background: var(--deep);
+      color: white;
+    }
+
+    .venue-card {
+      max-width: 800px;
+
+      margin: 50px auto 0;
+
+      padding: 60px 25px;
+
+      border: 1px solid rgba(217,173,98,.35);
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(255,255,255,.04),
+          rgba(255,255,255,.01)
+        );
+    }
+
+    .venue-card h3 {
+      font-family: "Cormorant Garamond", serif;
+
+      font-size: 48px;
+      font-weight: 500;
+    }
+
+    .venue-card p {
+      color: #c9b6ba;
+
+      margin: 15px auto 30px;
+
+      max-width: 450px;
+
+      line-height: 1.7;
+
+      font-size: 13px;
+    }
+
+    .map-btn {
+      display: inline-block;
+
+      text-decoration: none;
+
+      color: white;
+
+      border: 1px solid var(--gold);
+
+      padding: 13px 28px;
+
+      border-radius: 30px;
+
+      font-size: 10px;
+      letter-spacing: 2px;
+
+      text-transform: uppercase;
+
+      transition: .3s;
+    }
+
+    .map-btn:hover {
+      background: var(--gold);
+      color: var(--deep);
+    }
+
+
+    /* =====================================================
+       LORD VENKATESWARA DEVOTIONAL SECTION
+    ===================================================== */
+
+    .telugu-blessing {
+      position: relative;
+
+      overflow: hidden;
+
+      padding: 115px 7%;
+
+      text-align: center;
+
+      color: #4a2028;
+
+      background:
+        radial-gradient(
+          circle at center,
+          rgba(255,255,255,.98) 0%,
+          rgba(255,238,210,.94) 45%,
+          rgba(242,211,174,.95) 100%
+        );
+    }
+
+    /* Traditional double border */
+
+    .telugu-blessing::before {
+      content: "";
+
+      position: absolute;
+
+      inset: 20px;
+
+      border: 1px solid rgba(174,119,45,.55);
+
+      pointer-events: none;
+    }
+
+    .telugu-blessing::after {
+      content: "";
+
+      position: absolute;
+
+      inset: 27px;
+
+      border: 1px solid rgba(174,119,45,.20);
+
+      pointer-events: none;
+    }
+
+    .telugu-inner {
+      position: relative;
+
+      z-index: 2;
+
+      max-width: 900px;
+
+      margin: auto;
+    }
+
+
+    /* =====================================================
+       SHANKHAM + NAMAM + CHAKRA
+    ===================================================== */
+
+    .venkateswara-symbols {
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      gap: 55px;
+
+      margin: 0 auto 25px;
+
+      color: #9d5b28;
+    }
+
+    .devotional-symbol {
+      width: 75px;
+      height: 75px;
+
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 50%;
+
+      border: 1px solid rgba(174,119,45,.35);
+
+      background:
+        radial-gradient(
+          circle,
+          #fff9e9 0%,
+          #f4dfb4 100%
+        );
+
+      box-shadow:
+        0 7px 20px rgba(120,72,30,.12);
+
+      font-size: 40px;
+
+      transition: .4s ease;
+    }
+
+    .devotional-symbol:hover {
+      transform: translateY(-5px) scale(1.05);
+
+      box-shadow:
+        0 12px 28px rgba(120,72,30,.20);
+    }
+
+
+    /* Shankham */
+
+    .shankham-symbol {
+      font-size: 40px;
+    }
+
+
+    /* Sudarshana Chakra */
+
+    .chakra-symbol {
+      font-size: 43px;
+
+      color: #a66b2d;
+    }
+
+
+    /* =====================================================
+       TRADITIONAL VAISHNAVITE NAMAM
+    ===================================================== */
+
+    .namam {
+      position: relative;
+
+      width: 82px;
+      height: 92px;
+
+      display: flex;
+
+      justify-content: center;
+      align-items: center;
+
+      margin: 0 auto 0;
+    }
+
+    .namam::before,
+    .namam::after {
+      content: "";
+
+      position: absolute;
+
+      width: 24px;
+      height: 72px;
+
+      background: #fffdf7;
+
+      border: 1px solid #e3d6bd;
+
+      border-radius:
+        18px 18px 12px 12px;
+
+      top: 5px;
+    }
+
+    .namam::before {
+      left: 17px;
+
+      transform: rotate(8deg);
+    }
+
+    .namam::after {
+      right: 17px;
+
+      transform: rotate(-8deg);
+    }
+
+    /* Red center */
+
+    .namam-center {
+      position: absolute;
+
+      width: 13px;
+      height: 62px;
+
+      top: 15px;
+
+      background: #b52d35;
+
+      border-radius: 10px;
+
+      z-index: 2;
+
+      box-shadow:
+        0 2px 5px rgba(100,30,30,.15);
+    }
+
+    /* Golden bottom */
+
+    .namam-base {
+      position: absolute;
+
+      width: 34px;
+      height: 8px;
+
+      bottom: 3px;
+
+      background: #c18a35;
+
+      border-radius: 50%;
+
+      z-index: 3;
+    }
+
+
+    /* =====================================================
+       VENKATESWARA MANTRA
+    ===================================================== */
+
+    .venkateswara-mantra {
+      font-family: var(--telugu);
+
+      font-size: 18px;
+
+      color: #9d5b28;
+
+      letter-spacing: 1px;
+
+      margin-bottom: 25px;
+    }
+
+
+    /* Decorative line */
+
+    .devotional-line {
+      display: flex;
+
+      align-items: center;
+      justify-content: center;
+
+      gap: 15px;
+
+      max-width: 600px;
+
+      margin: 20px auto 30px;
+
+      color: #b88932;
+
+      font-size: 18px;
+    }
+
+    .devotional-line::before,
+    .devotional-line::after {
+      content: "";
+
+      height: 1px;
+
+      flex: 1;
+
+      background:
+        linear-gradient(
+          to right,
+          transparent,
+          rgba(184,137,50,.65)
+        );
+    }
+
+    .devotional-line::after {
+      background:
+        linear-gradient(
+          to left,
+          transparent,
+          rgba(184,137,50,.65)
+        );
+    }
+
+
+    /* =====================================================
+       TELUGU INVITATION
+    ===================================================== */
+
+    .telugu-shree {
+      font-family: var(--telugu);
+
+      font-size: 68px;
+
+      line-height: 1;
+
+      color: #b88932;
+
+      margin-bottom: 10px;
+    }
+
+    .telugu-label {
+      font-family: var(--telugu);
+
+      font-size: 16px;
+
+      color: #a66b35;
+
+      letter-spacing: 2px;
+
+      margin-bottom: 8px;
+    }
+
+    .telugu-title {
+      font-family: var(--telugu);
+
+      font-size: clamp(38px, 7vw, 64px);
+
+      font-weight: 600;
+
+      color: #7e2632;
+
+      margin-top: 8px;
+    }
+
+    .telugu-ornament {
+      color: #bd8837;
+
+      font-size: 30px;
+
+      margin: 18px 0 25px;
+    }
+
+    .telugu-sloka {
+      font-family: var(--telugu);
+
+      font-size: 20px;
+
+      line-height: 2.05;
+
+      color: #68454a;
+    }
+
+    .telugu-divider {
+      display: flex;
+
+      align-items: center;
+
+      gap: 20px;
+
+      max-width: 500px;
+
+      margin: 35px auto;
+    }
+
+    .telugu-divider::before,
+    .telugu-divider::after {
+      content: "";
+
+      height: 1px;
+
+      flex: 1;
+
+      background:
+        linear-gradient(
+          to right,
+          transparent,
+          #bd8837
+        );
+    }
+
+    .telugu-divider::after {
+      background:
+        linear-gradient(
+          to left,
+          transparent,
+          #bd8837
+        );
+    }
+
+    .telugu-divider span {
+      color: #b88932;
+
+      font-size: 22px;
+    }
+
+    .telugu-message {
+      font-family: var(--telugu);
+
+      font-size: 19px;
+
+      line-height: 2.1;
+
+      color: #76575b;
+    }
+
+    .telugu-names {
+      font-family: var(--telugu);
+
+      font-size: clamp(42px, 7vw, 68px);
+
+      font-weight: 600;
+
+      color: #8e2635;
+
+      margin: 10px 0 20px;
+    }
+
+    .telugu-names span {
+      font-size: 25px;
+
+      color: #b88932;
+
+      margin: 0 14px;
+    }
+
+
+    /* =====================================================
+       MUHURTHAM
+    ===================================================== */
+
+    .muhurtham {
+      max-width: 850px;
+
+      margin: 50px auto 30px;
+
+      display: grid;
+
+      grid-template-columns: repeat(3, 1fr);
+
+      border-top:
+        1px solid rgba(142,38,53,.25);
+
+      border-bottom:
+        1px solid rgba(142,38,53,.25);
+
+      background: rgba(255,255,255,.22);
+    }
+
+    .muhurtham div {
+      padding: 28px 15px;
+    }
+
+    .muhurtham div + div {
+      border-left:
+        1px solid rgba(142,38,53,.2);
+    }
+
+    .muhurtham span {
+      display: block;
+
+      font-family: var(--telugu);
+
+      color: #a66b35;
+
+      font-size: 14px;
+
+      margin-bottom: 8px;
+    }
+
+    .muhurtham strong {
+      display: block;
+
+      font-family: var(--telugu);
+
+      font-size: 17px;
+
+      color: #4d272e;
+    }
+
+    .blessings {
+      margin-top: 38px;
+
+      font-family: var(--telugu);
+
+      color: #9a6530;
+
+      font-size: 17px;
+    }
+
+    .flower-line {
+      margin-top: 35px;
+
+      color: #b88932;
+
+      letter-spacing: 12px;
+
+      font-size: 20px;
+    }
+
+
+    /* =====================================================
+       FOOTER
+    ===================================================== */
+
+    footer {
+      background: var(--wine);
+
+      color: white;
+
+      padding: 90px 20px;
+
+      text-align: center;
+    }
+
+    footer .names {
+      font-family: "Great Vibes", cursive;
+
+      color: var(--gold);
+
+      font-size: 65px;
+    }
+
+    footer p {
+      margin-top: 12px;
+
+      color: #c8b1b5;
+
+      font-size: 11px;
+
+      letter-spacing: 3px;
+
+      text-transform: uppercase;
+    }
+
+
+    /* =====================================================
+       FLOATING MUSIC
+    ===================================================== */
+
+    .music {
+      position: fixed;
+
+      right: 20px;
+      bottom: 20px;
+
+      width: 48px;
+      height: 48px;
+
+      border-radius: 50%;
+
+      background: var(--gold);
+
+      color: var(--wine);
+
+      border: none;
+
+      z-index: 50;
+
+      cursor: pointer;
+
+      box-shadow:
+        0 5px 20px rgba(0,0,0,.2);
+    }
+
+
+    /* =====================================================
+       ANIMATIONS
+    ===================================================== */
+
+    @keyframes rise {
+
+      from {
+        opacity: 0;
+        transform: translateY(25px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+    }
+
+    @keyframes gentleFloat {
+
+      0%, 100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-7px);
+      }
+
+    }
+
+
+    /* =====================================================
+       RESPONSIVE
+    ===================================================== */
+
+    @media (max-width: 800px) {
+
+      section {
+        padding: 80px 6%;
+      }
+
+      .couple {
+        grid-template-columns: 1fr;
+
+        gap: 8px;
+      }
+
+      .ampersand {
+        font-size: 45px;
+      }
+
+      .event-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+
+      }
+
+      .gallery-item:first-child {
+        grid-row: span 1;
+
+        grid-column: span 2;
+      }
+
+      .hero::before {
+        inset: 14px;
+      }
+
+      .muhurtham {
+        grid-template-columns: 1fr;
+      }
+
+      .muhurtham div + div {
+        border-left: none;
+
+        border-top:
+          1px solid rgba(142,38,53,.2);
+      }
+
+      .telugu-sloka {
+        font-size: 18px;
+      }
+
+      .telugu-message {
+        font-size: 17px;
+      }
+
+    }
+
+
+    @media (max-width: 500px) {
+
+      .gallery-grid {
+        display: grid;
+
+        grid-template-columns: 1fr;
+
+        grid-template-rows:
+          repeat(5, 230px);
+      }
+
+      .gallery-item:first-child {
+        grid-column: auto;
+      }
+
+      .hero h1 {
+        font-size: 72px;
+      }
+
+      .intro h1 {
+        font-size: 68px;
+      }
+
+      .telugu-blessing {
+        padding: 90px 7%;
+      }
+
+      .telugu-blessing::before {
+        inset: 12px;
+      }
+
+      .telugu-blessing::after {
+        inset: 18px;
+      }
+
+      .venkateswara-symbols {
+        gap: 22px;
+      }
+
+      .devotional-symbol {
+        width: 62px;
+        height: 62px;
+
+        font-size: 31px;
+      }
+
+      .namam {
+        transform: scale(.88);
+      }
+
+      .venkateswara-mantra {
+        font-size: 15px;
+      }
+
+    }
+
+  </style>
+
 </head>
 
 <body>
 
-<canvas id="webgl"></canvas>
-<div id="grain"></div>
-<div class="progress" id="progress"></div>
+  <!-- =====================================================
+       INTRO
+  ===================================================== -->
 
-<div class="intro" id="intro">
-  <div class="core">
-    <div class="mini">With love &amp; blessings</div>
-    <h1>Rakesh &amp; Sravani</h1>
-    <p>Invite you to celebrate their forever</p>
-    <button class="open" id="openBtn">ENTER THE EXPERIENCE</button>
-  </div>
+  <div class="intro" id="intro">
+
+
+<div class="intro-content">
+
+  <small>
+    With love & blessings
+  </small>
+
+  <h1>
+    Rakesh & Sravani
+  </h1>
+
+  <p>
+    Invite you to celebrate their forever
+  </p>
+
+  <button
+    class="open-btn"
+    onclick="openInvitation()"
+  >
+    OPEN INVITATION
+  </button>
+
 </div>
 
-<div class="hud">
-  <div class="scene-no" id="sceneNo">01 / 10</div>
-  <button class="music" id="musicBtn" aria-label="Toggle music">♫</button>
+  </div>
+
+  <!-- =====================================================
+       HERO
+  ===================================================== -->
+
+  <header class="hero">
+
+
+<div class="hero-content">
+
+  <div class="eyebrow">
+    Together with their families
+  </div>
+
+  <h1>
+    Rakesh <span>&</span> Sravani
+  </h1>
+
+  <div class="hero-date">
+    23 • AUGUST • 2026
+  </div>
+
+  <div class="hero-location">
+    Hyderabad
+  </div>
+
 </div>
 
-<main>
+<div class="scroll">
+  Scroll to discover ↓
+</div>
 
-<section class="hero">
-  <div class="hero-content reveal">
-    <div class="eyebrow">Together with their families</div>
-    <h1>Rakesh <span>&amp;</span> Sravani</h1>
-    <div class="date">23 • AUGUST • 2026</div>
-    <div class="place">Hyderabad</div>
-    <div class="hint">Move your cursor • scroll to travel through the story</div>
+  </header>
+
+  <!-- =====================================================
+       STORY
+  ===================================================== -->
+
+  <section class="story">
+
+<div class="label">
+  A beautiful beginning
+</div>
+
+<h2 class="section-title">
+  Two hearts, one story
+</h2>
+
+<div class="ornament">
+  ✦
+</div>
+
+<p class="story-text">
+
+  Some stories are written in the stars.
+  Ours began with a smile, grew through countless
+  memories, and has brought us here — ready to begin
+  the most beautiful chapter of our lives together.
+
+  With immense joy, we invite you to be part of
+  our wedding celebration.
+
+</p>
+
+
+<div class="couple">
+
+  <div class="person">
+
+    <h3>
+      Rakesh Kadali
+    </h3>
+
+    <p> Son of<br> Sri. Prasad Kadali &amp; Smt. Subhadra Devi Kadali </p>
   </div>
-  <div class="scroll">Scroll to discover ↓</div>
-</section>
 
-<section class="section">
-  <div class="panel reveal">
-    <div class="label">01 — A beautiful beginning</div>
-    <h2 class="title">Two hearts, one story</h2>
-    <p class="copy">Some stories are written in the stars. Ours began with a smile, grew through countless memories, and has brought us here — ready to begin the most beautiful chapter of our lives together. With immense joy, we invite you to be part of our wedding celebration.</p>
-    <div class="story-grid">
-      <div class="person">
-        <h3>Rakesh Kadali</h3>
-        <p>Son of<br>Sri. Prasad Kadali &amp; Smt. Subhadra Devi Kadali</p>
-      </div>
-      <div class="amp">&amp;</div>
-      <div class="person">
-        <h3>Sravani Ketha</h3>
-        <p>Daughter of<br>Sri. Satyanarayana Ketha &amp; Smt. Durga Ketha</p>
-      </div>
-    </div>
+
+  <div class="ampersand">
+    &
   </div>
-</section>
 
-<section class="section">
-  <div class="panel reveal">
-    <div class="label">02 — The journey</div>
-    <h2 class="title">A timeline made of memories</h2>
-    <div class="timeline">
-      <div class="milestone"><div class="num">01</div><h3>A smile</h3><p>A beginning filled with warmth and the promise of something beautiful.</p></div>
-      <div class="milestone"><div class="num">02</div><h3>Memories</h3><p>Countless moments grew into a story worth celebrating with everyone we love.</p></div>
-      <div class="milestone"><div class="num">03</div><h3>Forever</h3><p>Now two families come together for the next chapter.</p></div>
-    </div>
-    <div class="small-note">The 3D stars behind this scene react to your movement.</div>
+
+  <div class="person">
+
+    <h3>
+      Sravani Ketha
+    </h3>
+
+    <p> Daughter of<br> Sri. Satyanarayana Ketha &amp; Smt. Durga Ketha </p>
   </div>
-</section>
 
-<section class="section">
-  <div class="panel reveal">
-    <div class="label">03 — The moment approaches</div>
-    <h2 class="title">Until forever...</h2>
-    <div class="count-wrap">
-      <div class="clock"><div><strong id="days">00</strong><span>Days</span></div></div>
-      <div class="clock"><div><strong id="hours">00</strong><span>Hours</span></div></div>
-      <div class="clock"><div><strong id="minutes">00</strong><span>Minutes</span></div></div>
-      <div class="clock"><div><strong id="seconds">00</strong><span>Seconds</span></div></div>
-    </div>
-    <p class="small-note">Wedding muhurtham: 23 August 2026 • 10:25 AM</p>
+</div>
+
+  </section>
+
+  <!-- =====================================================
+       COUNTDOWN
+  ===================================================== -->
+
+  <section class="countdown-section">
+
+<div class="label">
+  The countdown begins
+</div>
+
+<h2 class="section-title">
+  Until forever...
+</h2>
+
+
+<div class="countdown">
+
+  <div class="time-box">
+    <strong id="days">00</strong>
+    <span>Days</span>
   </div>
-</section>
 
-<section class="section events">
-  <div class="panel reveal">
-    <div class="label">04 — Save the dates</div>
-    <h2 class="title">Wedding celebrations</h2>
-    <div class="event-grid">
-      <article class="event">
-        <div class="icon">🌸</div>
-        <h3>Mehendi</h3>
-        <div class="date">22 AUGUST • 08:30 AM</div>
-        <p>An evening of colors, music, laughter and beautiful mehendi.</p>
-      </article>
-      <article class="event">
-        <div class="icon">💍</div>
-        <h3>Wedding</h3>
-        <div class="date">23 AUGUST • 10:25 AM</div>
-        <p>Join us as we exchange vows and begin our forever together.</p>
-      </article>
-    </div>
+  <div class="time-box">
+    <strong id="hours">00</strong>
+    <span>Hours</span>
   </div>
-</section>
 
-<!-- ======================================================
-     05 — GALLERY
-     ====================================================== -->
-/* =========================================================
-   3D GALLERY
-   ========================================================= */
-
-const galleryStage = document.getElementById('galleryStage');
-
-if (galleryStage) {
-
-  const cards = galleryStage.querySelectorAll('.photo-card');
-
-  function moveGallery(e) {
-
-    const rect = galleryStage.getBoundingClientRect();
-
-    const x =
-      (e.clientX - rect.left) /
-      rect.width - 0.5;
-
-    const y =
-      (e.clientY - rect.top) /
-      rect.height - 0.5;
-
-    cards.forEach((card, index) => {
-
-      const baseY =
-        index === 0 ? -22 :
-        index === 1 ? 22 : 0;
-
-      const baseZ =
-        index === 0 ? 100 :
-        index === 1 ? 40 : 180;
-
-      const rotateY =
-        baseY + x * 35;
-
-      const rotateX =
-        -y * 18;
-
-      card.style.transform =
-        `translate(-50%,-50%)
-         rotateY(${rotateY}deg)
-         rotateX(${rotateX}deg)
-         translateZ(${baseZ}px)`;
-    });
-  }
-
-  galleryStage.addEventListener(
-    'pointermove',
-    moveGallery
-  );
-
-  galleryStage.addEventListener(
-    'pointerleave',
-    () => {
-
-      cards.forEach((card,index) => {
-
-        const baseY =
-          index === 0 ? -22 :
-          index === 1 ? 22 : 0;
-
-        const baseZ =
-          index === 0 ? 100 :
-          index === 1 ? 40 : 180;
-
-        card.style.transform =
-          `translate(-50%,-50%)
-           rotateY(${baseY}deg)
-           rotateX(0deg)
-           translateZ(${baseZ}px)`;
-      });
-
-    }
-  );
-
-}
-
-<section class="section venue">
-  <div class="panel reveal">
-    <div class="label">06 — Where we say “I do”</div>
-    <h2 class="title">The Celebration</h2>
-    <div class="venue-card">
-      <h3>HIG Function Hall</h3>
-      <p>BHEL, Hyderabad<br>Telangana • India</p>
-      <a class="map" href="https://maps.app.goo.gl/2pBEYxz2zzq43TgC8" target="_blank" rel="noopener">View on Google Maps</a>
-    </div>
+  <div class="time-box">
+    <strong id="minutes">00</strong>
+    <span>Minutes</span>
   </div>
-</section>
 
-<section class="section telugu">
-  <div class="panel reveal">
-    <div class="label">07 — Divine blessing</div>
-    <div class="symbols">
-      <div class="symbol">🐚</div>
-      <div class="namam"><i></i><b></b></div>
-      <div class="symbol">✺</div>
-    </div>
-    <div class="mantra">శ్రీ వేంకటేశాయ నమః</div>
-    <div class="shree">శ్రీ</div>
-    <h2>వివాహ శుభలేఖ</h2>
-    <div style="color:#bd8837;font-size:30px;margin:18px">❈</div>
-    <div class="sloka">
-      వక్రతుండ మహాకాయ<br>
-      సూర్యకోటి సమప్రభః<br>
-      నిర్విఘ్నం కురుమే దేవ<br>
-      శుభకార్యేషు సర్వదా
-    </div>
-    <div style="color:#b88932;margin:25px">✦</div>
-    <div class="telugu-text">
-      పెద్దలు నిర్ణయించిన శుభ ముహూర్తమున<br>
-      మా కుటుంబ సభ్యుల సమక్షంలో
-    </div>
-    <div class="telugu-names">రాకేష్ <span>తో</span> శ్రావణి</div>
-    <div class="telugu-text">
-      వివాహ బంధంతో ఒక్కటవుతున్న శుభ సందర్భంలో<br><br>
-      తమరు కుటుంబ సమేతంగా విచ్చేసి<br>
-      వధూవరులను ఆశీర్వదించి<br>
-      మా ఆనందాన్ని మరింత మధురం చేయవలసిందిగా<br>
-      మనస్ఫూర్తిగా కోరుచున్నాము.
-    </div>
-    <div class="muhurtham">
-      <div><span>వివాహ తేదీ</span><strong>23 ఆగస్టు 2026</strong></div>
-      <div><span>శుభ ముహూర్తం</span><strong>ఉదయం 10:25 గంటలకు</strong></div>
-      <div><span>వేదిక</span><strong>HIG ఫంక్షన్ హాల్</strong></div>
-    </div>
-    <div class="bless">💐 మీ రాకే మా ఆనందం<br>మీ ఆశీర్వాదమే మా బలం 💐</div>
+  <div class="time-box">
+    <strong id="seconds">00</strong>
+    <span>Seconds</span>
   </div>
-</section>
 
-<section class="section" style="background:#0a0508">
-  <div class="panel reveal">
-    <div class="label">08 — A celebration for everyone</div>
-    <h2 class="title">Come with your blessings</h2>
-    <p class="copy">Bring your smiles, your love and your blessings. This celebration is made more meaningful by the people who share it with us.</p>
-    <div style="font-size:65px;margin-top:25px">🌸 ✦ 💍 ✦ 🌸</div>
+</div>
+
+  </section>
+
+  <!-- =====================================================
+       EVENTS
+  ===================================================== -->
+
+  <section class="events">
+
+<div class="label">
+  Save the dates
+</div>
+
+<h2 class="section-title">
+  Wedding celebrations
+</h2>
+
+<div class="ornament">
+  ❈
+</div>
+
+
+<div class="event-grid">
+
+
+  <article class="event">
+
+    <div class="event-icon">
+      🌸
+    </div>
+
+    <h3>
+      Mehendi
+    </h3>
+
+    <div class="date">
+      22 AUGUST • 08:30 AM
+    </div>
+
+    <p>
+      An evening of colors, music,
+      laughter and beautiful mehendi.
+    </p>
+
+  </article>
+
+
+  <article class="event">
+
+    <div class="event-icon">
+      💍
+    </div>
+
+    <h3>
+      Wedding
+    </h3>
+
+    <div class="date">
+      23 AUGUST • 10:25 AM
+    </div>
+
+    <p>
+      Join us as we exchange vows
+      and begin our forever together.
+    </p>
+
+  </article>
+
+
+</div>
+
+  </section>
+
+  <!-- =====================================================
+       GALLERY
+  ===================================================== -->
+
+  <section class="gallery">
+
+<div class="label">
+  Our moments
+</div>
+
+<h2 class="section-title">
+  A glimpse of us
+</h2>
+
+<div class="ornament">
+  ✦
+</div>
+
+
+<div class="gallery-grid">
+
+  <div class="gallery-item">
+    <img
+      src="images/rings.JPG"
+      alt="Wedding rings"
+    >
   </div>
-</section>
 
-<section class="section final">
-  <div class="panel reveal">
-    <div class="label">09 — The surprise</div>
-    <h2>Forever starts here</h2>
-    <p>Rakesh &amp; Sravani • 23 August 2026</p>
-    <button class="replay" id="replay">Replay the opening</button>
+
+  <div class="gallery-item">
+    <img
+      src="images/couple.JPG"
+      alt="Wedding couple"
+    >
   </div>
-</section>
 
-</main>
 
-<audio id="music" loop preload="auto">
+  <div class="gallery-item">
+    <img
+      src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=800&q=85"
+      alt="Wedding celebration"
+    >
+  </div>
+
+</div>
+
+  </section>
+
+  <!-- =====================================================
+       VENUE
+  ===================================================== -->
+
+  <section class="venue">
+
+<div class="label">
+  Where we say "I do"
+</div>
+
+<h2 class="section-title">
+  The Celebration
+</h2>
+
+
+<div class="venue-card">
+
+  <h3>
+    HIG Function Hall
+  </h3>
+
+  <p>
+    BHEL, Hyderabad<br>
+    Telangana • India
+  </p>
+
+  <a
+    class="map-btn"
+    href="https://maps.app.goo.gl/2pBEYxz2zzq43TgC8"
+    target="_blank"
+    rel="noopener"
+  >
+    View on Google Maps
+  </a>
+
+</div>
+
+  </section>
+
+  <!-- =====================================================
+       LORD VENKATESWARA
+       TELUGU WEDDING BLESSING
+  ===================================================== -->
+
+  <section class="telugu-blessing">
+
+<div class="telugu-inner">
+
+
+  <!-- =================================================
+       SHANKHAM + NAMAM + SUDARSHANA CHAKRA
+  ================================================= -->
+
+  <div class="venkateswara-symbols">
+
+
+    <!-- Shankham -->
+
+    <div
+      class="devotional-symbol shankham-symbol"
+      aria-label="Shankham"
+      title="శంఖం"
+    >
+      🐚
+    </div>
+
+
+    <!-- Traditional Namam -->
+
+    <div
+      class="namam"
+      aria-label="Lord Venkateswara Namam"
+      title="శ్రీ వేంకటేశ్వర స్వామి నామం"
+    >
+      <div class="namam-center"></div>
+      <div class="namam-base"></div>
+    </div>
+
+
+    <!-- Sudarshana Chakra -->
+
+    <div
+      class="devotional-symbol chakra-symbol"
+      aria-label="Sudarshana Chakra"
+      title="సుదర్శన చక్రం"
+    >
+      ✺
+    </div>
+
+
+  </div>
+
+
+  <!-- Venkateswara Mantra -->
+
+  <div class="venkateswara-mantra">
+    శ్రీ వేంకటేశాయ నమః
+  </div>
+
+
+  <!-- Decorative devotional line -->
+
+  <div class="devotional-line">
+    <span>❈</span>
+  </div>
+
+
+  <!-- Sri -->
+
+  <div class="telugu-shree">
+    శ్రీ
+  </div>
+
+
+  <div class="telugu-label">
+    శుభమస్తు
+  </div>
+
+
+  <h2 class="telugu-title">
+    వివాహ శుభలేఖ
+  </h2>
+
+
+  <div class="telugu-ornament">
+    ❈
+  </div>
+
+
+  <!-- Sanskrit blessing -->
+
+  <p class="telugu-sloka">
+
+    వక్రతుండ మహాకాయ<br>
+    సూర్యకోటి సమప్రభః<br>
+    నిర్విఘ్నం కురుమే దేవ<br>
+    శుభకార్యేషు సర్వదా
+
+  </p>
+
+
+  <div class="telugu-divider">
+    <span>✦</span>
+  </div>
+
+
+  <!-- Telugu invitation -->
+
+  <p class="telugu-message">
+
+    పెద్దలు నిర్ణయించిన శుభ ముహూర్తమున<br>
+    మా కుటుంబ సభ్యుల సమక్షంలో
+
+  </p>
+
+
+  <h3 class="telugu-names">
+
+    రాకేష్
+
+    <span>తో</span>
+
+    శ్రావణి
+
+  </h3>
+
+
+  <p class="telugu-message">
+
+    వివాహ బంధంతో ఒక్కటవుతున్న శుభ సందర్భంలో<br><br>
+
+    తమరు కుటుంబ సమేతంగా విచ్చేసి<br>
+    వధూవరులను ఆశీర్వదించి<br>
+    మా ఆనందాన్ని మరింత మధురం చేయవలసిందిగా<br>
+    మనస్ఫూర్తిగా కోరుచున్నాము.
+
+  </p>
+
+
+  <!-- =================================================
+       MUHURTHAM
+  ================================================= -->
+
+  <div class="muhurtham">
+
+    <div>
+
+      <span>
+        వివాహ తేదీ
+      </span>
+
+      <strong>
+        23 ఆగస్టు 2026
+      </strong>
+
+    </div>
+
+
+    <div>
+
+      <span>
+        శుభ ముహూర్తం
+      </span>
+
+      <strong>
+        ఉదయం 10:25 గంటలకు
+      </strong>
+
+    </div>
+
+
+    <div>
+
+      <span>
+        వేదిక
+      </span>
+
+      <strong>
+        HIG ఫంక్షన్ హాల్
+      </strong>
+
+    </div>
+
+  </div>
+
+
+  <!-- Blessing -->
+
+  <p class="blessings">
+
+    💐 మీ రాకే మా ఆనందం<br>
+    మీ ఆశీర్వాదమే మా బలం 💐
+
+  </p>
+
+
+  <div class="flower-line">
+    ❁ ❁ ❁
+  </div>
+
+
+</div>
+
+  </section>
+
+  <!-- =====================================================
+       FOOTER
+  ===================================================== -->
+
+  <footer>
+
+<div class="names">
+  Rakesh & Sravani
+</div>
+
+<p>
+  Forever starts here • 23 AUGUST 2026
+</p>
+
+  </footer>
+
+  <!-- =====================================================
+       MUSIC
+  ===================================================== -->
+
+<!-- =====================================================
+     MUSIC
+===================================================== -->
+
+<button
+  class="music"
+  id="musicBtn"
+  onclick="toggleMusic()"
+  aria-label="Toggle wedding music"
+>
+  ♫
+</button>
+
+<audio
+  id="weddingMusic"
+  loop
+  preload="auto"
+>
   <source src="./wedding-song.mp3" type="audio/mpeg">
 </audio>
 
-<script src="https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.min.js"></script>
+  <!-- =====================================================
+       JAVASCRIPT
+  ===================================================== -->
 
-<script>
-'use strict';
-
-/* ======================================================
-   BASIC ELEMENTS
-====================================================== */
-
-const weddingDate =
-  new Date('2026-08-23T10:25:00+05:30').getTime();
-
-const intro = document.getElementById('intro');
-const openBtn = document.getElementById('openBtn');
-const replayBtn = document.getElementById('replay');
-const music = document.getElementById('music');
-const musicBtn = document.getElementById('musicBtn');
-const progress = document.getElementById('progress');
-const sceneNo = document.getElementById('sceneNo');
+  <script>
 
 
-/* ======================================================
+    /* ============================================
+       OPEN INVITATION
+    ============================================ */
+
+    function openInvitation() {
+
+      document
+        .getElementById("intro")
+        .classList
+        .add("hide");
+
+      const music =
+        document.getElementById("weddingMusic");
+
+      if (music.src) {
+
+        music
+          .play()
+          .catch(() => {});
+
+      }
+
+    }
+
+
+    /* ============================================
+       COUNTDOWN
+    ============================================ */
+
+    const weddingDate =
+      new Date(
+        "August 23, 2026 10:25:00"
+      ).getTime();
+
+
+    function updateCountdown() {
+
+      const now =
+        new Date().getTime();
+
+      const distance =
+        weddingDate - now;
+
+
+      if (distance <= 0) {
+
+        document.getElementById("days")
+          .textContent = "00";
+
+        document.getElementById("hours")
+          .textContent = "00";
+
+        document.getElementById("minutes")
+          .textContent = "00";
+
+        document.getElementById("seconds")
+          .textContent = "00";
+
+        return;
+
+      }
+
+
+      const days =
+        Math.floor(
+          distance /
+          (1000 * 60 * 60 * 24)
+        );
+
+
+      const hours =
+        Math.floor(
+          (distance %
+            (1000 * 60 * 60 * 24)) /
+          (1000 * 60 * 60)
+        );
+
+
+      const minutes =
+        Math.floor(
+          (distance %
+            (1000 * 60 * 60)) /
+          (1000 * 60)
+        );
+
+
+      const seconds =
+        Math.floor(
+          (distance %
+            (1000 * 60)) /
+          1000
+        );
+
+
+      document.getElementById("days")
+        .textContent =
+        String(days).padStart(2, "0");
+
+
+      document.getElementById("hours")
+        .textContent =
+        String(hours).padStart(2, "0");
+
+
+      document.getElementById("minutes")
+        .textContent =
+        String(minutes).padStart(2, "0");
+
+
+      document.getElementById("seconds")
+        .textContent =
+        String(seconds).padStart(2, "0");
+
+    }
+
+
+    updateCountdown();
+
+    setInterval(
+      updateCountdown,
+      1000
+    );
+
+
+    /* ============================================
+       MUSIC
+    ============================================ */
+
+    /* ============================================
    MUSIC
-====================================================== */
+============================================ */
 
-async function startMusic(){
-  try{
-    await music.play();
-    musicBtn.textContent = 'Ⅱ';
-  }catch(error){
-    musicBtn.textContent = '♫';
-  }
+const music = document.getElementById("weddingMusic");
+const musicBtn = document.getElementById("musicBtn");
+
+let playing = false;
+
+/*
+  Start music when the visitor opens
+  the wedding invitation.
+*/
+function openInvitation() {
+
+  document
+    .getElementById("intro")
+    .classList
+    .add("hide");
+
+  music
+    .play()
+    .then(() => {
+      playing = true;
+      musicBtn.textContent = "Ⅱ";
+    })
+    .catch(() => {
+      /*
+        Some browsers block automatic audio.
+        The visitor can press the music button.
+      */
+      playing = false;
+      musicBtn.textContent = "♫";
+    });
 }
 
-openBtn.addEventListener('click',function(){
-  intro.classList.add('hide');
-  startMusic();
-  burstParticles();
-});
 
-musicBtn.addEventListener('click',async function(){
+/*
+  Music ON / OFF button
+*/
+async function toggleMusic() {
 
-  if(music.paused){
-    await startMusic();
-  }else{
+  if (music.readyState === 0) {
+    alert(
+      "Wedding music could not be loaded. Please make sure wedding-song.mp3 is in the same folder as index.html."
+    );
+    return;
+  }
+
+  if (music.paused) {
+
+    try {
+
+      await music.play();
+
+      playing = true;
+      musicBtn.textContent = "Ⅱ";
+
+    } catch (error) {
+
+      console.error("Music playback failed:", error);
+
+      alert(
+        "Unable to play the wedding music. Please check that wedding-song.mp3 is a valid MP3 file."
+      );
+
+    }
+
+  } else {
+
     music.pause();
-    musicBtn.textContent = '♫';
+
+    playing = false;
+    musicBtn.textContent = "♫";
+
   }
+
+}
+
+
+/*
+  If the MP3 file cannot be loaded
+*/
+music.addEventListener("error", function () {
+
+  playing = false;
+  musicBtn.textContent = "♫";
+
+  console.error(
+    "Wedding music file could not be loaded. Check the file name and location."
+  );
 
 });
 
-
-/* ======================================================
-   COUNTDOWN
-====================================================== */
-
-function updateCountdown(){
-
-  let remaining =
-    weddingDate - Date.now();
-
-  if(remaining < 0){
-    remaining = 0;
-  }
-
-  const days =
-    Math.floor(remaining / 86400000);
-
-  const hours =
-    Math.floor(remaining / 3600000) % 24;
-
-  const minutes =
-    Math.floor(remaining / 60000) % 60;
-
-  const seconds =
-    Math.floor(remaining / 1000) % 60;
-
-  document.getElementById('days').textContent =
-    String(days).padStart(2,'0');
-
-  document.getElementById('hours').textContent =
-    String(hours).padStart(2,'0');
-
-  document.getElementById('minutes').textContent =
-    String(minutes).padStart(2,'0');
-
-  document.getElementById('seconds').textContent =
-    String(seconds).padStart(2,'0');
-}
-
-updateCountdown();
-setInterval(updateCountdown,1000);
-
-
-/* ======================================================
-   REVEAL ANIMATIONS
-====================================================== */
-
-const reveals =
-  document.querySelectorAll('.reveal');
-
-const revealObserver =
-  new IntersectionObserver(function(entries){
-
-    entries.forEach(function(entry){
-
-      if(entry.isIntersecting){
-        entry.target.classList.add('show');
-      }
-
-    });
-
-  },{
-    threshold:.18
-  });
-
-reveals.forEach(function(element){
-  revealObserver.observe(element);
-});
-
-
-/* ======================================================
-   SCROLL PROGRESS
-====================================================== */
-
-function updateScrollUI(){
-
-  const maxScroll =
-    document.documentElement.scrollHeight -
-    window.innerHeight;
-
-  const amount =
-    maxScroll > 0
-      ? window.scrollY / maxScroll
-      : 0;
-
-  progress.style.width =
-    (amount * 100) + '%';
-
-  sceneNo.textContent =
-    String(
-      Math.min(
-        10,
-        Math.floor(amount * 10) + 1
-      )
-    ).padStart(2,'0') + ' / 10';
-}
-
-window.addEventListener(
-  'scroll',
-  updateScrollUI,
-  {passive:true}
-);
-
-updateScrollUI();
-
-
-/* ======================================================
-   THREE.JS WORLD
-====================================================== */
-
-const canvas =
-  document.getElementById('webgl');
-
-const renderer =
-  new THREE.WebGLRenderer({
-    canvas:canvas,
-    antialias:true,
-    alpha:true
-  });
-
-renderer.setPixelRatio(
-  Math.min(window.devicePixelRatio || 1,2)
-);
-
-renderer.setSize(
-  window.innerWidth,
-  window.innerHeight
-);
-
-renderer.outputColorSpace =
-  THREE.SRGBColorSpace;
-
-
-const scene =
-  new THREE.Scene();
-
-scene.fog =
-  new THREE.FogExp2(
-    0x11070c,
-    .0022
-  );
-
-
-const camera =
-  new THREE.PerspectiveCamera(
-    55,
-    window.innerWidth /
-    window.innerHeight,
-    .1,
-    2000
-  );
-
-camera.position.set(
-  0,
-  0,
-  28
-);
-
-
-/* ======================================================
-   LIGHTING
-====================================================== */
-
-scene.add(
-  new THREE.AmbientLight(
-    0xffe8c4,
-    .8
-  )
-);
-
-const keyLight =
-  new THREE.PointLight(
-    0xd9ad62,
-    22,
-    100
-  );
-
-keyLight.position.set(
-  0,
-  5,
-  15
-);
-
-scene.add(keyLight);
-
-
-const rimLight =
-  new THREE.PointLight(
-    0x8e2635,
-    18,
-    100
-  );
-
-rimLight.position.set(
-  -18,
-  -5,
-  5
-);
-
-scene.add(rimLight);
-
-
-/* ======================================================
-   STAR FIELD
-====================================================== */
-
-const STAR_COUNT = 8500;
-
-const starGeometry =
-  new THREE.BufferGeometry();
-
-const starPositions =
-  new Float32Array(
-    STAR_COUNT * 3
-  );
-
-for(
-  let i = 0;
-  i < STAR_COUNT;
-  i++
-){
-
-  const radius =
-    10 + Math.random() * 70;
-
-  const angle =
-    Math.random() *
-    Math.PI * 2;
-
-  const polar =
-    Math.acos(
-      2 * Math.random() - 1
-    );
-
-  starPositions[i * 3] =
-    radius *
-    Math.sin(polar) *
-    Math.cos(angle);
-
-  starPositions[i * 3 + 1] =
-    radius *
-    Math.cos(polar);
-
-  starPositions[i * 3 + 2] =
-    radius *
-    Math.sin(polar) *
-    Math.sin(angle);
-}
-
-starGeometry.setAttribute(
-  'position',
-  new THREE.BufferAttribute(
-    starPositions,
-    3
-  )
-);
-
-const stars =
-  new THREE.Points(
-    starGeometry,
-    new THREE.PointsMaterial({
-      color:0xffe6b0,
-      size:.075,
-      transparent:true,
-      opacity:.85
-    })
-  );
-
-scene.add(stars);
-
-
-/* ======================================================
-   GOLD PETAL PARTICLES
-   IMPORTANT:
-   PETAL_COUNT IS DECLARED BEFORE ANY USE.
-====================================================== */
-
-const PETAL_COUNT = 1800;
-
-const petalGeometry =
-  new THREE.BufferGeometry();
-
-const petalPositions =
-  new Float32Array(
-    PETAL_COUNT * 3
-  );
-
-const petalVelocity =
-  new Float32Array(
-    PETAL_COUNT
-  );
-
-for(
-  let i = 0;
-  i < PETAL_COUNT;
-  i++
-){
-
-  petalPositions[i * 3] =
-    (Math.random() - .5) * 65;
-
-  petalPositions[i * 3 + 1] =
-    (Math.random() - .5) * 45;
-
-  petalPositions[i * 3 + 2] =
-    (Math.random() - .5) * 55;
-
-  petalVelocity[i] =
-    .008 + Math.random() * .018;
-}
-
-petalGeometry.setAttribute(
-  'position',
-  new THREE.BufferAttribute(
-    petalPositions,
-    3
-  )
-);
-
-const petals =
-  new THREE.Points(
-    petalGeometry,
-    new THREE.PointsMaterial({
-      color:0xd9ad62,
-      size:.11,
-      transparent:true,
-      opacity:.72
-    })
-  );
-
-scene.add(petals);
-
-
-/* ======================================================
-   WEDDING RINGS
-====================================================== */
-
-const ringMaterial =
-  new THREE.MeshStandardMaterial({
-    color:0xd9ad62,
-    metalness:.95,
-    roughness:.16,
-    emissive:0x5a3510,
-    emissiveIntensity:.35
-  });
-
-const ring1 =
-  new THREE.Mesh(
-    new THREE.TorusGeometry(
-      3.3,.18,32,96
-    ),
-    ringMaterial
-  );
-
-const ring2 =
-  new THREE.Mesh(
-    new THREE.TorusGeometry(
-      2.35,.14,32,96
-    ),
-    ringMaterial
-  );
-
-ring1.rotation.x = .8;
-ring2.rotation.x = -.8;
-
-ring1.position.x = -2;
-ring2.position.x = 2;
-
-scene.add(
-  ring1,
-  ring2
-);
-
-
-/* ======================================================
-   HEART
-====================================================== */
-
-const heartShape =
-  new THREE.Shape();
-
-heartShape.moveTo(0,1);
-
-heartShape.bezierCurveTo(
-  -2.2,2.7,
-  -4.2,.3,
-  0,-2.7
-);
-
-heartShape.bezierCurveTo(
-  4.2,.3,
-  2.2,2.7,
-  0,1
-);
-
-const heartGeometry =
-  new THREE.ExtrudeGeometry(
-    heartShape,
-    {
-      depth:.55,
-      bevelEnabled:true,
-      bevelSegments:4,
-      bevelSize:.12,
-      bevelThickness:.12
-    }
-  );
-
-heartGeometry.center();
-
-const heart =
-  new THREE.Mesh(
-    heartGeometry,
-    new THREE.MeshPhysicalMaterial({
-      color:0xb86d75,
-      metalness:.25,
-      roughness:.22,
-      transmission:.1,
-      emissive:0x3a0915,
-      emissiveIntensity:.7
-    })
-  );
-
-heart.scale.set(
-  .75,
-  .75,
-  .75
-);
-
-heart.position.set(
-  0,
-  0,
-  -1
-);
-
-scene.add(heart);
-
-
-/* ======================================================
-   MOON
-====================================================== */
-
-const moon =
-  new THREE.Mesh(
-    new THREE.SphereGeometry(
-      1.2,
-      32,
-      32
-    ),
-    new THREE.MeshStandardMaterial({
-      color:0xffe6b0,
-      emissive:0x8a5c18,
-      emissiveIntensity:1.4,
-      metalness:.2,
-      roughness:.4
-    })
-  );
-
-moon.position.set(
-  0,
-  8,
-  -15
-);
-
-scene.add(moon);
-
-
-/* ======================================================
-   MOUSE PARALLAX
-====================================================== */
-
-const mouse = {
-  x:0,
-  y:0
-};
-
-window.addEventListener(
-  'pointermove',
-  function(event){
-
-    mouse.x =
-      event.clientX /
-      window.innerWidth - .5;
-
-    mouse.y =
-      event.clientY /
-      window.innerHeight - .5;
-
-  },
-  {passive:true}
-);
-
-
-/* ======================================================
-   PARTICLE BURST
-====================================================== */
-
-function burstParticles(){
-
-  const positions =
-    petalGeometry.attributes
-      .position.array;
-
-  const burstAmount =
-    Math.min(
-      500,
-      PETAL_COUNT
-    );
-
-  for(
-    let i = 0;
-    i < burstAmount;
-    i++
-  ){
-
-    positions[i * 3] =
-      (Math.random() - .5) * 25;
-
-    positions[i * 3 + 1] =
-      (Math.random() - .5) * 15;
-
-    positions[i * 3 + 2] =
-      (Math.random() - .5) * 15;
-  }
-
-  petalGeometry.attributes
-    .position
-    .needsUpdate = true;
-}
-
-
-/* ======================================================
-   THREE.JS ANIMATION
-====================================================== */
-
-function animate(time){
-
-  requestAnimationFrame(
-    animate
-  );
-
-  const elapsed =
-    time * .00035;
-
-  stars.rotation.y =
-    elapsed;
-
-  stars.rotation.x =
-    Math.sin(
-      elapsed * .7
-    ) * .04;
-
-  petals.rotation.y =
-    -elapsed * .7;
-
-  const positions =
-    petalGeometry.attributes
-      .position.array;
-
-  for(
-    let i = 0;
-    i < PETAL_COUNT;
-    i++
-  ){
-
-    positions[i * 3 + 1] -=
-      petalVelocity[i];
-
-    positions[i * 3] +=
-      Math.sin(
-        time * .0007 + i
-      ) * .0015;
-
-    if(
-      positions[i * 3 + 1] < -25
-    ){
-      positions[i * 3 + 1] = 25;
-    }
-  }
-
-  petalGeometry.attributes
-    .position
-    .needsUpdate = true;
-
-  ring1.rotation.z += .003;
-  ring2.rotation.z -= .004;
-
-  heart.rotation.y =
-    Math.sin(
-      time * .0007
-    ) * .25;
-
-  heart.position.y =
-    Math.sin(
-      time * .001
-    ) * .35;
-
-  camera.position.x +=
-    (
-      mouse.x * 4 -
-      camera.position.x
-    ) * .025;
-
-  camera.position.y +=
-    (
-      -mouse.y * 3 -
-      camera.position.y
-    ) * .025;
-
-  camera.lookAt(
-    0,
-    0,
-    0
-  );
-
-  renderer.render(
-    scene,
-    camera
-  );
-}
-
-animate(0);
-
-
-/* ======================================================
-   RESIZE
-====================================================== */
-
-window.addEventListener(
-  'resize',
-  function(){
-
-    camera.aspect =
-      window.innerWidth /
-      window.innerHeight;
-
-    camera.updateProjectionMatrix();
-
-    renderer.setSize(
-      window.innerWidth,
-      window.innerHeight
-    );
-
-    renderer.setPixelRatio(
-      Math.min(
-        window.devicePixelRatio || 1,
-        2
-      )
-    );
-
-  }
-);
-
-
-/* ======================================================
-   GALLERY 3D INTERACTION
-====================================================== */
-
-const galleryStage =
-  document.getElementById(
-    'galleryStage'
-  );
-
-if(galleryStage){
-
-  const galleryCards =
-    galleryStage.querySelectorAll(
-      '.photo-card'
-    );
-
-  galleryStage.addEventListener(
-    'pointermove',
-    function(event){
-
-      const rect =
-        galleryStage.getBoundingClientRect();
-
-      const x =
-        (event.clientX - rect.left) /
-        rect.width - .5;
-
-      const y =
-        (event.clientY - rect.top) /
-        rect.height - .5;
-
-      galleryCards.forEach(
-        function(card,index){
-
-          const zValues =
-            [100,40,180];
-
-          const rotations =
-            [-22,22,0];
-
-          card.style.transform =
-            `
-            translate(-50%,-50%)
-            rotateY(${rotations[index] + x * 35}deg)
-            rotateX(${-y * 18}deg)
-            translateZ(${zValues[index]}px)
-            `;
-        }
-      );
-
-    },
-    {passive:true}
-  );
-
-
-  galleryStage.addEventListener(
-    'pointerleave',
-    function(){
-
-      galleryCards.forEach(
-        function(card,index){
-
-          const zValues =
-            [100,40,180];
-
-          const rotations =
-            [-22,22,0];
-
-          card.style.transform =
-            `
-            translate(-50%,-50%)
-            rotateY(${rotations[index]}deg)
-            translateZ(${zValues[index]}px)
-            `;
-        }
-      );
-
-    }
-  );
-
-}
-
-
-/* ======================================================
-   REPLAY OPENING
-====================================================== */
-
-replayBtn.addEventListener(
-  'click',
-  function(){
-
-    window.scrollTo({
-      top:0,
-      behavior:'auto'
-    });
-
-    /*
-      Hide intro first, then show it again on next frame.
-      This makes Replay reliable even after the intro
-      transition has already completed.
-    */
-
-    intro.classList.add('hide');
-
-    setTimeout(function(){
-
-      music.pause();
-
-      try{
-        music.currentTime = 0;
-      }catch(error){}
-
-      musicBtn.textContent = '♫';
-
-      intro.classList.remove('hide');
-
-    },80);
-
-  }
-);
-
-
-/* ======================================================
-   IMAGE DIAGNOSTICS
-   The browser console will tell you exactly which
-   image path failed.
-====================================================== */
-
-document
-  .querySelectorAll('.photo-frame img')
-  .forEach(function(image){
-
-    image.addEventListener(
-      'load',
-      function(){
-
-        console.log(
-          'Wedding image loaded successfully:',
-          image.src
-        );
-
-      }
-    );
-
-    image.addEventListener(
-      'error',
-      function(){
-
-        console.error(
-          'Wedding image could not be loaded:',
-          image.src
-        );
-
-      }
-    );
-
-  });
-
-</script>
+  </script>
 
 </body>
 </html>
