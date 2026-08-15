@@ -1569,7 +1569,6 @@ body.film-playing{overflow:hidden}
 
   <div class="film-scenes">
     <section class="film-scene active">
-      <div class="film-kicker">A CINEMATIC WEDDING STORY</div>
       <h1>Rakesh <span>&amp;</span> Sravani</h1>
       <p>A journey written in love</p>
     </section>
@@ -1584,7 +1583,6 @@ body.film-playing{overflow:hidden}
     <section class="film-scene couple-scene">
       <div class="photo-card">
         <img src="images/couple.JPG" alt="Rakesh and Sravani" onerror="this.style.display='none'">
-        <div class="fallback-monogram" aria-hidden="true"><span>R</span><span>&amp;</span><span>S</span></div>
       </div>
       <div class="film-kicker">TWO HEARTS</div>
       <h2>One beautiful forever</h2>
@@ -2445,12 +2443,12 @@ music.addEventListener("error", function () {
 
     if (!film || !launch || !close || !scenes.length) return;
 
-    var total = 156;
+    var total = 55;
     var startTime = 0;
     var running = false;
     var raf = 0;
 
-    var cuts = [20,44,72,98,122,142,156];
+    var cuts = [6,14,24,33,42,49,55];
 
     function getAudio() {
       return document.getElementById("weddingMusic");
