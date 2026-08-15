@@ -1907,6 +1907,23 @@ body.film-playing .film-music-toggle{
   body.film-playing .website-music-toggle{display:none}
 }
 
+
+/* Final positioning fix:
+   Desktop has two separate controls:
+   - Wedding Film launcher: bottom 20px
+   - Website music ON/OFF: bottom 82px
+   Mobile keeps its existing bottom:78px position.
+*/
+.website-music-toggle{
+  bottom:82px;
+}
+
+@media (max-width:700px){
+  .website-music-toggle{
+    bottom:78px;
+  }
+}
+
 </style>
 
 </head>
