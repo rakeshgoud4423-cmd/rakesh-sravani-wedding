@@ -1638,6 +1638,15 @@ body.film-playing{overflow:hidden}
 #musicBtn{
   display:none !important;
 }
+/* The film music control is only needed while the cinematic film is open. */
+.film-music-toggle{
+  opacity:0;
+  pointer-events:none;
+}
+body.film-playing .film-music-toggle{
+  opacity:1;
+  pointer-events:auto;
+}
 
 </style>
 
@@ -1924,7 +1933,7 @@ body.film-playing{overflow:hidden}
     </div>
 
     <p>
-      An evening of colors, music,
+      A joyful celebration of colors, music,
       laughter and beautiful mehendi.
     </p>
 
@@ -2328,9 +2337,7 @@ body.film-playing{overflow:hidden}
     ============================================ */
 
     const weddingDate =
-      new Date(
-        "August 23, 2026 10:25:00"
-      ).getTime();
+      new Date("2026-08-23T10:25:00+05:30").getTime();
 
 
     function updateCountdown() {
@@ -2543,6 +2550,7 @@ music.addEventListener("error", function () {
     var startTime = 0;
     var running = false;
     var raf = 0;
+    var filmSession = false;
 
     var cuts = [6,14,24,33,42,49,55];
 
@@ -2600,12 +2608,15 @@ music.addEventListener("error", function () {
 
     function stop() {
       running = false;
+      filmSession = false;
       if (raf) cancelAnimationFrame(raf);
 
       film.classList.remove("playing");
       film.setAttribute("aria-hidden","true");
       document.body.classList.remove("film-playing");
       launcher.style.display = "";
+      var audio = getAudio();
+      if (audio) audio.loop = true;
       render(0);
       syncMusicButton();
     }
@@ -2615,6 +2626,12 @@ music.addEventListener("error", function () {
       var elapsed = (now - startTime) / 1000;
 
       if (elapsed >= total) {
+        var audio = getAudio();
+        if (audio && filmSession) {
+          audio.pause();
+          try { audio.currentTime = 0; } catch (e) {}
+          audio.loop = true;
+        }
         stop();
         return;
       }
@@ -2636,9 +2653,12 @@ music.addEventListener("error", function () {
 
       render(0);
 
-      // Start music from the same user gesture that starts the film.
+      // Always start the soundtrack from 0:00 so the film and music stay synchronized.
       var audio = getAudio();
-      if (audio && audio.paused) {
+      if (audio) {
+        filmSession = true;
+        audio.loop = false;
+        try { audio.currentTime = 0; } catch (e) {}
         var promise = audio.play();
         if (promise && typeof promise.catch === "function") {
           promise.catch(function () {});
