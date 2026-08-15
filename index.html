@@ -1543,6 +1543,89 @@ body.film-playing{overflow:hidden}
   }
 }
 
+
+/* =========================================================
+   MOBILE FILM LAYOUT FIX
+   Keeps the couple photo perfectly centered and prevents
+   controls from covering the title/photo.
+   ========================================================= */
+@media (max-width: 600px){
+  #weddingFilm .film-scene{
+    width:100vw;
+    max-width:100vw;
+    box-sizing:border-box;
+    left:0;
+    right:0;
+    padding:18px 14px 105px;
+    overflow:hidden;
+  }
+
+  #weddingFilm .photo-card{
+    width:min(88vw, 430px);
+    height:auto;
+    aspect-ratio: 3 / 4;
+    margin:0 auto 24px auto;
+    left:auto;
+    right:auto;
+    flex:0 0 auto;
+    transform:translateY(0);
+  }
+
+  #weddingFilm .photo-card img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+  }
+
+  #weddingFilm .couple-scene{
+    justify-content:center;
+  }
+
+  #weddingFilm .couple-scene .film-kicker{
+    margin-bottom:10px;
+  }
+
+  #weddingFilm .couple-scene h2{
+    max-width:92vw;
+    margin:0 auto;
+    font-size:clamp(36px,9.5vw,58px);
+    line-height:1.05;
+    text-align:center;
+  }
+
+  /* Keep music control away from the title. */
+  .film-music-toggle{
+    right:12px;
+    bottom:72px;
+    min-width:42px;
+    width:42px;
+    height:42px;
+    padding:0;
+    border-radius:50%;
+  }
+
+  .film-music-toggle .music-label{
+    display:none;
+  }
+
+  /* Compact film controls and leave enough bottom breathing room. */
+  #weddingFilm .film-controls{
+    left:12px;
+    right:12px;
+    bottom:15px;
+    gap:10px;
+  }
+
+  #weddingFilm .film-controls .film-bar{
+    min-width:0;
+  }
+
+  #weddingFilm #closeFilm{
+    white-space:nowrap;
+    font-size:8px;
+  }
+}
+
 </style>
 
 </head>
