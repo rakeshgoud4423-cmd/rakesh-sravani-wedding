@@ -1496,6 +1496,53 @@ body.film-playing{overflow:hidden}
   margin:0 .03em !important;
 }
 
+
+/* Dedicated music ON/OFF control */
+.film-music-toggle{
+  position:fixed;
+  right:20px;
+  bottom:78px;
+  z-index:100001;
+  min-width:48px;
+  height:48px;
+  padding:0 14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  border:1px solid rgba(220,181,105,.65);
+  border-radius:28px;
+  background:rgba(48,21,29,.92);
+  color:#f5dfb0;
+  box-shadow:0 8px 25px rgba(0,0,0,.3);
+  backdrop-filter:blur(12px);
+  cursor:pointer;
+  font:10px "Montserrat",sans-serif;
+  letter-spacing:2px;
+  transition:transform .2s ease,background .2s ease,opacity .2s ease;
+}
+.film-music-toggle:hover{
+  transform:scale(1.05);
+  background:#6e3441;
+}
+.film-music-toggle.is-playing{
+  color:#351923;
+  background:var(--gold,#d9ad62);
+}
+.film-music-toggle .music-icon{
+  font-size:17px;
+  line-height:1;
+}
+.film-music-toggle .music-label{
+  font-size:9px;
+}
+@media(max-width:600px){
+  .film-music-toggle{
+    right:12px;
+    bottom:72px;
+  }
+}
+
 </style>
 
 </head>
@@ -1508,6 +1555,13 @@ body.film-playing{overflow:hidden}
   </button>
 </div>
 
+
+<button id="filmMusicToggle" class="film-music-toggle" type="button"
+        aria-label="Pause wedding music" title="Pause wedding music">
+  <span class="music-icon">♫</span>
+  <span class="music-label">MUSIC</span>
+</button>
+
 <div id="weddingFilm" aria-hidden="true">
   <div class="film-bg"></div>
   <div class="film-grain"></div>
@@ -1515,6 +1569,7 @@ body.film-playing{overflow:hidden}
 
   <div class="film-scenes">
     <section class="film-scene active">
+      <div class="film-kicker">A CINEMATIC WEDDING STORY</div>
       <h1>Rakesh <span>&amp;</span> Sravani</h1>
       <p>A journey written in love</p>
     </section>
@@ -2386,6 +2441,7 @@ music.addEventListener("error", function () {
     var scenes = Array.prototype.slice.call(document.querySelectorAll("#weddingFilm .film-scene"));
     var bar = document.getElementById("filmBar");
     var clock = document.getElementById("filmClock");
+    var musicBtn = document.getElementById("filmMusicToggle");
 
     if (!film || !launch || !close || !scenes.length) return;
 
@@ -2394,14 +2450,11 @@ music.addEventListener("error", function () {
     var running = false;
     var raf = 0;
 
-    // 0:00–0:20 opening
-    // 0:20–0:44 blessing
-    // 0:44–1:12 couple
-    // 1:12–1:38 events
-    // 1:38–2:02 venue
-    // 2:02–2:22 Telugu invitation
-    // 2:22–2:36 finale
     var cuts = [20,44,72,98,122,142,156];
+
+    function getAudio() {
+      return document.getElementById("weddingMusic");
+    }
 
     function formatTime(t) {
       t = Math.max(0, Math.floor(t));
@@ -2409,75 +2462,124 @@ music.addEventListener("error", function () {
              String(t % 60).padStart(2,"0");
     }
 
-    function sceneFor(t) {
-      for (var i=0; i<cuts.length; i++) {
-        if (t < cuts[i]) return i;
-      }
-      return cuts.length - 1;
-    }
-
     function render(t) {
-      var idx = sceneFor(t);
-      for (var i=0; i<scenes.length; i++) {
-        scenes[i].classList.toggle("active", i === idx);
+      var idx = 0;
+      for (var i = 0; i < cuts.length; i++) {
+        if (t < cuts[i]) { idx = i; break; }
       }
+      scenes.forEach(function(scene, i) {
+        scene.classList.toggle("active", i === idx);
+      });
       bar.style.width = Math.min(100, (t / total) * 100) + "%";
       clock.textContent = formatTime(t);
+    }
+
+    function syncMusicButton() {
+      var audio = getAudio();
+      var playing = audio && !audio.paused && !audio.ended;
+
+      if (musicBtn) {
+        musicBtn.classList.toggle("is-playing", !!playing);
+        musicBtn.querySelector(".music-icon").textContent = playing ? "♫" : "▶";
+        musicBtn.querySelector(".music-label").textContent = playing ? "MUSIC ON" : "MUSIC OFF";
+        musicBtn.setAttribute("aria-label", playing ? "Pause wedding music" : "Play wedding music");
+        musicBtn.setAttribute("title", playing ? "Pause wedding music" : "Play wedding music");
+      }
+
+      return !!playing;
+    }
+
+    function toggleMusic() {
+      var audio = getAudio();
+      if (!audio) return;
+
+      if (audio.paused || audio.ended) {
+        var promise = audio.play();
+        if (promise && typeof promise.catch === "function") {
+          promise.catch(function () {});
+        }
+      } else {
+        audio.pause();
+      }
+      syncMusicButton();
     }
 
     function stop() {
       running = false;
       if (raf) cancelAnimationFrame(raf);
+
       film.classList.remove("playing");
       film.setAttribute("aria-hidden","true");
       document.body.classList.remove("film-playing");
       launcher.style.display = "";
       render(0);
+      syncMusicButton();
     }
 
     function frame(now) {
       if (!running) return;
       var elapsed = (now - startTime) / 1000;
+
       if (elapsed >= total) {
         stop();
         return;
       }
+
       render(elapsed);
       raf = requestAnimationFrame(frame);
     }
 
     function play() {
       if (running) return;
+
       running = true;
       startTime = performance.now();
+
       film.classList.add("playing");
       film.setAttribute("aria-hidden","false");
       document.body.classList.add("film-playing");
       launcher.style.display = "none";
+
       render(0);
+
+      // Start music from the same user gesture that starts the film.
+      var audio = getAudio();
+      if (audio && audio.paused) {
+        var promise = audio.play();
+        if (promise && typeof promise.catch === "function") {
+          promise.catch(function () {});
+        }
+      }
+
+      syncMusicButton();
       raf = requestAnimationFrame(frame);
     }
 
-    launch.addEventListener("click", function () {
-      play();
-
-      // Start the existing wedding music from the same user gesture.
-      // The site's existing toggleMusic() handles the MP3 and button state.
-      try {
-        if (typeof toggleMusic === "function") {
-          var audio = document.getElementById("weddingMusic");
-          if (audio && audio.paused) toggleMusic();
-        }
-      } catch (err) {
-        console.warn("Wedding music could not start automatically:", err);
-      }
-    });
+    launch.addEventListener("click", play);
     close.addEventListener("click", stop);
 
-    // ESC always releases the user from the full-screen film.
+    // The user can now stop/start music at any time without stopping the film.
+    if (musicBtn) {
+      musicBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        toggleMusic();
+      });
+    }
+
+    var audio = getAudio();
+    if (audio) {
+      ["play","pause","ended"].forEach(function(eventName) {
+        audio.addEventListener(eventName, syncMusicButton);
+      });
+    }
+
+    // ESC releases the user from the film, but does NOT forcibly stop music.
     document.addEventListener("keydown", function(e) {
       if (e.key === "Escape" && running) stop();
     });
+
+    syncMusicButton();
   }
 
   if (document.readyState === "loading") {
