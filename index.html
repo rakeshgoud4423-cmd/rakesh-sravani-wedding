@@ -1648,6 +1648,265 @@ body.film-playing .film-music-toggle{
   pointer-events:auto;
 }
 
+
+/* =========================================================
+   PREMIUM FINAL ADDITIONS
+   RSVP intentionally excluded per request.
+   ========================================================= */
+
+.premium-actions{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:12px;
+  margin:28px auto 0;
+  max-width:760px;
+}
+.premium-action{
+  appearance:none;
+  border:1px solid rgba(232,201,135,.55);
+  background:rgba(232,201,135,.08);
+  color:#ead9b4;
+  border-radius:999px;
+  padding:12px 18px;
+  font:inherit;
+  font-size:11px;
+  letter-spacing:1.8px;
+  text-decoration:none;
+  cursor:pointer;
+  transition:transform .25s ease, background .25s ease, box-shadow .25s ease;
+}
+.premium-action:hover{
+  transform:translateY(-2px);
+  background:rgba(232,201,135,.16);
+  box-shadow:0 8px 28px rgba(232,201,135,.12);
+}
+.premium-action.primary{
+  background:linear-gradient(135deg,#e8c987,#c99d55);
+  color:#24150f;
+  border-color:#e8c987;
+  font-weight:600;
+}
+
+.story-journey{
+  margin:50px auto 0;
+  max-width:850px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+}
+.journey-card{
+  padding:22px 14px;
+  border:1px solid rgba(232,201,135,.2);
+  background:rgba(255,255,255,.025);
+  border-radius:18px;
+  min-height:125px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+.journey-number{
+  color:#e8c987;
+  font-size:10px;
+  letter-spacing:3px;
+  margin-bottom:10px;
+}
+.journey-card h3{
+  margin:0 0 8px;
+  font-size:18px;
+  font-weight:500;
+}
+.journey-card p{
+  margin:0;
+  opacity:.72;
+  font-size:12px;
+  line-height:1.6;
+}
+
+.save-date-section{
+  text-align:center;
+  padding:55px 20px;
+  background:radial-gradient(circle at center,rgba(232,201,135,.08),transparent 62%);
+}
+.save-date-section .save-date-copy{
+  max-width:620px;
+  margin:0 auto 24px;
+  opacity:.75;
+  line-height:1.7;
+}
+
+.blessing-section{
+  text-align:center;
+  padding:65px 20px 80px;
+}
+.blessing-card{
+  max-width:650px;
+  margin:0 auto;
+  padding:30px;
+  border:1px solid rgba(232,201,135,.28);
+  border-radius:24px;
+  background:rgba(255,255,255,.025);
+  box-shadow:0 18px 70px rgba(0,0,0,.18);
+}
+.blessing-form{
+  display:grid;
+  gap:12px;
+  margin-top:22px;
+}
+.blessing-form input,
+.blessing-form textarea{
+  width:100%;
+  box-sizing:border-box;
+  border:1px solid rgba(232,201,135,.25);
+  background:rgba(0,0,0,.2);
+  color:#f4ead7;
+  border-radius:12px;
+  padding:13px 14px;
+  font:inherit;
+  outline:none;
+}
+.blessing-form textarea{
+  min-height:110px;
+  resize:vertical;
+}
+.blessing-form input:focus,
+.blessing-form textarea:focus{
+  border-color:rgba(232,201,135,.7);
+}
+.blessing-preview{
+  display:none;
+  margin-top:18px;
+  padding:16px;
+  border-radius:14px;
+  background:rgba(232,201,135,.07);
+  border:1px solid rgba(232,201,135,.16);
+}
+.blessing-preview.show{display:block}
+.blessing-preview strong{display:block;color:#e8c987;margin-bottom:6px}
+
+.mobile-action-bar{
+  display:none;
+}
+
+@media (max-width:700px){
+  .story-journey{
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-top:34px;
+  }
+  .journey-card{
+    min-height:105px;
+    padding:17px 12px;
+  }
+  .journey-card h3{font-size:16px}
+  .journey-card p{font-size:11px}
+  .premium-actions{
+    gap:8px;
+    margin-top:22px;
+  }
+  .premium-action{
+    padding:10px 13px;
+    font-size:9px;
+    letter-spacing:1.2px;
+  }
+  .save-date-section{
+    padding:48px 16px 92px;
+  }
+  .blessing-section{
+    padding:52px 16px 100px;
+  }
+  .blessing-card{
+    padding:22px 16px;
+  }
+
+  .mobile-action-bar{
+    position:fixed;
+    z-index:1200;
+    left:10px;
+    right:10px;
+    bottom:10px;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:6px;
+    padding:7px;
+    border:1px solid rgba(232,201,135,.3);
+    border-radius:18px;
+    background:rgba(16,10,13,.92);
+    backdrop-filter:blur(14px);
+    box-shadow:0 10px 35px rgba(0,0,0,.45);
+  }
+  .mobile-action-bar button,
+  .mobile-action-bar a{
+    min-width:0;
+    border:0;
+    background:transparent;
+    color:#ead9b4;
+    text-decoration:none;
+    font:inherit;
+    font-size:8px;
+    letter-spacing:.8px;
+    text-align:center;
+    padding:9px 2px;
+    cursor:pointer;
+  }
+  .mobile-action-bar .bar-icon{
+    display:block;
+    font-size:16px;
+    line-height:1;
+    margin-bottom:5px;
+  }
+  body.film-playing .mobile-action-bar{display:none}
+}
+
+
+/* Website background-music control */
+.website-music-toggle{
+  position:fixed;
+  right:18px;
+  bottom:18px;
+  z-index:1190;
+  width:52px;
+  height:52px;
+  border-radius:50%;
+  border:1px solid rgba(232,201,135,.75);
+  background:linear-gradient(135deg,#e8c987,#c99d55);
+  color:#24150f;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:21px;
+  cursor:pointer;
+  box-shadow:0 10px 30px rgba(0,0,0,.35);
+  transition:transform .2s ease, opacity .2s ease;
+}
+.website-music-toggle:hover{transform:translateY(-2px)}
+.website-music-toggle.is-off{opacity:.72}
+.website-music-toggle .music-status{
+  position:absolute;
+  right:-4px;
+  bottom:-4px;
+  width:18px;
+  height:18px;
+  border-radius:50%;
+  background:#160d10;
+  color:#e8c987;
+  border:1px solid rgba(232,201,135,.55);
+  font-size:9px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+@media(max-width:700px){
+  .website-music-toggle{
+    width:46px;
+    height:46px;
+    right:16px;
+    bottom:78px;
+    font-size:19px;
+  }
+  body.film-playing .website-music-toggle{display:none}
+}
+
 </style>
 
 </head>
@@ -1851,6 +2110,30 @@ body.film-playing .film-music-toggle{
     <p> Daughter of<br> Sri. Satyanarayana Ketha &amp; Smt. Durga Ketha </p>
   </div>
 
+
+  <div class="story-journey" aria-label="Our journey">
+    <article class="journey-card">
+      <div class="journey-number">01</div>
+      <h3>The first hello</h3>
+      <p>A beautiful beginning to a story we will always treasure.</p>
+    </article>
+    <article class="journey-card">
+      <div class="journey-number">02</div>
+      <h3>The moment we knew</h3>
+      <p>Two hearts discovering a lifetime of possibilities together.</p>
+    </article>
+    <article class="journey-card">
+      <div class="journey-number">03</div>
+      <h3>Two families, one bond</h3>
+      <p>Love brought two families closer and made the journey even more special.</p>
+    </article>
+    <article class="journey-card">
+      <div class="journey-number">04</div>
+      <h3>Forever begins</h3>
+      <p>23 August 2026 — the next beautiful chapter begins.</p>
+    </article>
+  </div>
+
 </div>
 
   </section>
@@ -2048,6 +2331,17 @@ body.film-playing .film-music-toggle{
   >
     View on Google Maps
   </a>
+
+  <div class="premium-actions">
+    <a class="premium-action primary"
+       href="https://maps.app.goo.gl/2pBEYxz2zzq43TgC8"
+       target="_blank" rel="noopener">
+      📍 GET DIRECTIONS
+    </a>
+    <button class="premium-action" type="button" onclick="shareInvitation()">
+      ↗ SHARE INVITATION
+    </button>
+  </div>
 
 </div>
 
@@ -2259,6 +2553,28 @@ body.film-playing .film-music-toggle{
 
   </section>
 
+
+  <!-- =====================================================
+       SAVE THE DATE
+  ===================================================== -->
+  <section class="save-date-section">
+    <div class="label">Keep this date close</div>
+    <h2 class="section-title">Save the date</h2>
+    <div class="ornament">✦</div>
+    <p class="save-date-copy">
+      23 August 2026 • 10:25 AM • Hyderabad<br>
+      Add our wedding to your calendar and celebrate this beautiful day with us.
+    </p>
+    <div class="premium-actions">
+      <button class="premium-action primary" type="button" onclick="addToCalendar()">
+        📅 ADD TO CALENDAR
+      </button>
+      <button class="premium-action" type="button" onclick="shareInvitation()">
+        💌 SHARE WITH FAMILY
+      </button>
+    </div>
+  </section>
+
   <!-- =====================================================
        FOOTER
   ===================================================== -->
@@ -2274,6 +2590,35 @@ body.film-playing .film-music-toggle{
 </p>
 
   </footer>
+
+
+  <!-- =====================================================
+       LEAVE A BLESSING
+  ===================================================== -->
+  <section class="blessing-section">
+    <div class="label">A little love from you</div>
+    <h2 class="section-title">Leave your blessings</h2>
+    <div class="ornament">❈</div>
+
+    <div class="blessing-card">
+      <p class="save-date-copy">
+        Your love and blessings mean the world to us.
+        Write a little message and share it with the couple or family.
+      </p>
+
+      <form class="blessing-form" onsubmit="sendBlessing(event)">
+        <input id="blessingName" type="text" maxlength="80"
+               placeholder="Your name" autocomplete="name" required>
+        <textarea id="blessingMessage" maxlength="500"
+                  placeholder="Write your blessing..." required></textarea>
+        <button class="premium-action primary" type="submit">
+          💛 SHARE YOUR BLESSING
+        </button>
+      </form>
+
+      <div id="blessingPreview" class="blessing-preview" aria-live="polite"></div>
+    </div>
+  </section>
 
   <!-- =====================================================
        MUSIC
@@ -2702,6 +3047,165 @@ music.addEventListener("error", function () {
     initWeddingFilm();
   }
 })();
+</script>
+
+
+<script>
+/* =========================================================
+   PREMIUM INVITATION ACTIONS
+   ========================================================= */
+
+function shareInvitation() {
+  const title = "Rakesh & Sravani — Wedding Invitation";
+  const text = "Rakesh & Sravani are getting married ❤️\n23 August 2026 • Hyderabad\nYou are warmly invited to celebrate with us.";
+  const url = window.location.href;
+
+  if (navigator.share) {
+    navigator.share({title, text, url}).catch(() => {});
+    return;
+  }
+
+  const whatsapp = "https://wa.me/?text=" + encodeURIComponent(text + "\n" + url);
+  window.open(whatsapp, "_blank", "noopener");
+}
+
+function addToCalendar() {
+  const title = "Rakesh & Sravani — Wedding";
+  const details = "Wedding celebration of Rakesh & Sravani.";
+  const location = "HIG Function Hall, BHEL, Hyderabad, Telangana, India";
+
+  // Google Calendar expects UTC timestamps.
+  const start = "20260823T045500Z"; // 10:25 AM IST
+  const end   = "20260823T065500Z"; // 12:25 PM IST
+
+  const url =
+    "https://calendar.google.com/calendar/render?action=TEMPLATE" +
+    "&text=" + encodeURIComponent(title) +
+    "&dates=" + start + "/" + end +
+    "&details=" + encodeURIComponent(details) +
+    "&location=" + encodeURIComponent(location);
+
+  window.open(url, "_blank", "noopener");
+}
+
+function sendBlessing(event) {
+  event.preventDefault();
+
+  const name = document.getElementById("blessingName").value.trim();
+  const message = document.getElementById("blessingMessage").value.trim();
+  const preview = document.getElementById("blessingPreview");
+
+  if (!name || !message) return;
+
+  const text =
+    "💛 Blessings for Rakesh & Sravani\n\n" +
+    "From: " + name + "\n\n" +
+    message +
+    "\n\n23 August 2026 • Hyderabad";
+
+  preview.innerHTML =
+    "<strong>Your blessing is ready to share</strong>" +
+    "<div>" + escapeHtml(message) + "</div>";
+
+  preview.classList.add("show");
+
+  const whatsapp =
+    "https://wa.me/?text=" + encodeURIComponent(text);
+
+  // Give the guest a direct share destination without requiring
+  // a private couple phone number.
+  window.open(whatsapp, "_blank", "noopener");
+}
+
+function escapeHtml(value) {
+  return value.replace(/[&<>"']/g, function(ch) {
+    return {
+      "&":"&amp;",
+      "<":"&lt;",
+      ">":"&gt;",
+      '"':"&quot;",
+      "'":"&#039;"
+    }[ch];
+  });
+}
+</script>
+
+
+<button id="websiteMusicToggle" class="website-music-toggle"
+        type="button" aria-label="Turn website music off"
+        title="Website music: ON"
+        onclick="toggleWebsiteMusic()">
+  ♫
+  <span class="music-status">ON</span>
+</button>
+
+
+<script>
+/* =========================================================
+   WEBSITE BACKGROUND MUSIC — independent from wedding film
+   ========================================================= */
+let websiteMusicOn = true;
+
+function getWebsiteAudio() {
+  // Reuse the invitation's existing background audio element.
+  return document.querySelector('audio:not(#filmAudio)') ||
+         document.querySelector('audio');
+}
+
+function updateWebsiteMusicButton() {
+  const btn = document.getElementById("websiteMusicToggle");
+  if (!btn) return;
+  const audio = getWebsiteAudio();
+  const actuallyPlaying = audio && !audio.paused && !audio.muted && audio.currentTime > 0;
+
+  btn.classList.toggle("is-off", !websiteMusicOn);
+  btn.setAttribute("aria-label", websiteMusicOn ? "Turn website music off" : "Turn website music on");
+  btn.title = websiteMusicOn ? "Website music: ON" : "Website music: OFF";
+
+  const status = btn.querySelector(".music-status");
+  if (status) status.textContent = websiteMusicOn && actuallyPlaying ? "ON" : "OFF";
+  btn.firstChild.textContent = websiteMusicOn ? "♫" : "×";
+}
+
+function toggleWebsiteMusic() {
+  const audio = getWebsiteAudio();
+  if (!audio) return;
+
+  websiteMusicOn = !websiteMusicOn;
+
+  if (websiteMusicOn) {
+    audio.muted = false;
+    audio.play().catch(() => {
+      // Mobile browsers may require a user gesture; this click is one.
+    });
+  } else {
+    audio.pause();
+  }
+
+  updateWebsiteMusicButton();
+}
+
+/* If the existing website audio starts/stops elsewhere, keep the button accurate. */
+document.addEventListener("DOMContentLoaded", function() {
+  const audio = getWebsiteAudio();
+  if (!audio) return;
+
+  audio.addEventListener("play", updateWebsiteMusicButton);
+  audio.addEventListener("pause", updateWebsiteMusicButton);
+  audio.addEventListener("volumechange", updateWebsiteMusicButton);
+
+  updateWebsiteMusicButton();
+});
+
+/* If the existing code calls toggleMusic(), make sure that control also
+   updates the new website-wide button when it is controlling background audio. */
+const _originalToggleMusic = window.toggleMusic;
+if (typeof _originalToggleMusic === "function") {
+  window.toggleMusic = function() {
+    _originalToggleMusic.apply(this, arguments);
+    setTimeout(updateWebsiteMusicButton, 50);
+  };
+}
 </script>
 
 </body>
