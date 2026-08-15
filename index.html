@@ -1924,6 +1924,14 @@ body.film-playing .film-music-toggle{
   }
 }
 
+
+/* Gallery fix: rings.JPG should be the same-sized gallery tile as the other photos.
+   The original first-child rule made it span two desktop rows, which enlarged it. */
+.gallery-grid .gallery-item:first-child{
+  grid-row: span 1;
+  grid-column: auto;
+}
+
 </style>
 
 </head>
