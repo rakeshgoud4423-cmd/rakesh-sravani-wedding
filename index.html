@@ -12,6 +12,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
   <link
     href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Great+Vibes&family=Montserrat:wght@400;500;600&family=Noto+Serif+Telugu:wght@400;500;600;700&display=swap"
     rel="stylesheet"
@@ -1978,6 +1979,26 @@ body.film-playing .film-music-toggle{
 .gallery-grid .gallery-item:first-child{
   grid-row: span 1;
   grid-column: auto;
+}
+
+
+/* Desktop story alignment fix:
+   The journey cards are inside the .couple grid. Make them span the
+   full couple section instead of being squeezed into the first grid cell.
+   Mobile keeps the existing responsive two-column journey layout. */
+.couple > .story-journey{
+  grid-column:1 / -1;
+  width:100%;
+  max-width:850px;
+  justify-self:center;
+}
+
+@media (max-width:800px){
+  .couple > .story-journey{
+    grid-column:1;
+    width:100%;
+    max-width:100%;
+  }
 }
 
 </style>
