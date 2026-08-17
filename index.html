@@ -2611,6 +2611,81 @@ body.film-playing .film-music-toggle{
 </style>
 
 
+<style id="film-player-controls-v8">
+/* Film-player controls: seek backward/forward and pause/play. */
+#weddingFilm .film-controls{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+#weddingFilm .film-seek-btn,
+#weddingFilm .film-play-btn{
+  position:relative;
+  flex:0 0 auto;
+  width:42px;
+  height:42px;
+  min-width:42px;
+  padding:0;
+  border:1px solid rgba(232,201,135,.38);
+  border-radius:50%;
+  background:rgba(31,18,24,.72);
+  color:#f7e7c5;
+  display:grid;
+  place-items:center;
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  box-shadow:0 4px 18px rgba(0,0,0,.22), inset 0 0 0 1px rgba(255,255,255,.035);
+  transition:transform .18s ease, background .18s ease, border-color .18s ease, box-shadow .18s ease;
+}
+#weddingFilm .film-seek-btn svg,
+#weddingFilm .film-play-btn svg{
+  width:23px;
+  height:23px;
+  display:block;
+  overflow:visible;
+}
+#weddingFilm .film-seek-btn svg path,
+#weddingFilm .film-play-btn svg path{
+  fill:none;
+  stroke:currentColor;
+  stroke-width:2.4;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+#weddingFilm .film-seek-btn svg text{
+  fill:currentColor;
+  stroke:none;
+  font:600 10px/1 Arial,sans-serif;
+  letter-spacing:0;
+}
+#weddingFilm .film-play-btn .pause-icon{display:none}
+#weddingFilm .film-play-btn.is-paused .play-icon{display:none}
+#weddingFilm .film-play-btn.is-paused .pause-icon{display:block}
+#weddingFilm .film-seek-btn:hover,
+#weddingFilm .film-play-btn:hover{
+  background:rgba(51,27,35,.9);
+  border-color:rgba(232,201,135,.72);
+  box-shadow:0 5px 22px rgba(0,0,0,.3),0 0 14px rgba(232,201,135,.08);
+}
+#weddingFilm .film-seek-btn:active,
+#weddingFilm .film-play-btn:active{transform:scale(.91)}
+#weddingFilm .film-seek-btn:focus-visible,
+#weddingFilm .film-play-btn:focus-visible{outline:2px solid rgba(232,201,135,.8);outline-offset:3px}
+#weddingFilm .film-bar{
+  cursor:pointer;
+  touch-action:none;
+}
+#weddingFilm #filmSeekBar:focus-visible{outline:2px solid #e5bd72;outline-offset:4px}
+@media(max-width:600px){
+  #weddingFilm .film-controls{gap:7px}
+  #weddingFilm .film-seek-btn,#weddingFilm .film-play-btn{width:38px;height:38px;min-width:38px}
+  #weddingFilm .film-seek-btn svg,#weddingFilm .film-play-btn svg{width:21px;height:21px}
+  #weddingFilm .film-clock{font-size:10px}
+}
+</style>
+
 <style id="mobile-film-final-fix">
 /* FINAL MOBILE FILM LAYOUT */
 html,body{max-width:100%;overflow-x:hidden}
@@ -3261,7 +3336,25 @@ html,body{max-width:100%;overflow-x:hidden}
 
   <div class="film-controls">
     <span id="filmClock">00:00</span>
-    <div class="film-bar"><i id="filmBar"></i></div>
+    <button id="filmBack10" class="film-seek-btn" type="button" aria-label="Go back 10 seconds" title="Back 10 seconds">
+      <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+        <path d="M18 12a16 16 0 1 0 11-3"/>
+        <path d="M18 6v8h8"/>
+        <text x="24" y="29" text-anchor="middle">10</text>
+      </svg>
+    </button>
+    <button id="filmPlayPause" class="film-play-btn" type="button" aria-label="Pause film" title="Pause film">
+      <svg class="play-icon" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="M17 12v24M31 12v24"/></svg>
+      <svg class="pause-icon" viewBox="0 0 48 48" aria-hidden="true" focusable="false"><path d="M19 12l17 12-17 12z"/></svg>
+    </button>
+    <button id="filmForward10" class="film-seek-btn" type="button" aria-label="Go forward 10 seconds" title="Forward 10 seconds">
+      <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+        <path d="M30 12a16 16 0 1 1-11-3"/>
+        <path d="M30 6v8h-8"/>
+        <text x="24" y="29" text-anchor="middle">10</text>
+      </svg>
+    </button>
+    <div class="film-bar" id="filmSeekBar" role="slider" aria-label="Film progress" aria-valuemin="0" aria-valuemax="55" aria-valuenow="0" tabindex="0"><i id="filmBar"></i></div>
     <button id="closeFilm" type="button">SKIP FILM</button>
   </div>
 </div>
@@ -4179,8 +4272,12 @@ music.addEventListener("error", function () {
     });
 
     var bar = document.getElementById("filmBar");
+    var seekBar = document.getElementById("filmSeekBar");
     var clock = document.getElementById("filmClock");
     var musicBtn = document.getElementById("filmMusicToggle");
+    var back10 = document.getElementById("filmBack10");
+    var forward10 = document.getElementById("filmForward10");
+    var playPause = document.getElementById("filmPlayPause");
 
     if (!film || !launch || !close || !scenes.length) return;
 
@@ -4190,6 +4287,7 @@ music.addEventListener("error", function () {
     var raf = 0;
     var filmSession = false;
     var filmTimer = 0;
+    var audioWasPlayingBeforePause = false;
 
     var cuts = [5,9,17,23,29,35,40,50,55];
 
@@ -4212,8 +4310,18 @@ music.addEventListener("error", function () {
         scene.classList.toggle("active", i === idx);
         scene.style.willChange = (i === idx) ? "opacity" : "auto";
       });
-      bar.style.width = Math.min(100, (t / total) * 100) + "%";
+      var percent = Math.min(100, (t / total) * 100);
+      bar.style.width = percent + "%";
       clock.textContent = formatTime(t);
+      if (seekBar) {
+        seekBar.setAttribute("aria-valuenow", String(Math.floor(t)));
+        seekBar.setAttribute("aria-valuetext", formatTime(t) + " of " + formatTime(total));
+      }
+      if (playPause) {
+        playPause.classList.toggle("is-paused", !running);
+        playPause.setAttribute("aria-label", running ? "Pause film" : "Play film");
+        playPause.setAttribute("title", running ? "Pause film" : "Play film");
+      }
     }
 
     function syncMusicButton() {
@@ -4288,6 +4396,62 @@ music.addEventListener("error", function () {
       filmTimer = setTimeout(frame, 250);
     }
 
+    function seekTo(seconds) {
+      seconds = Math.max(0, Math.min(total - 0.05, Number(seconds) || 0));
+      if (!running) {
+        running = true;
+        film.classList.add("playing");
+        film.setAttribute("aria-hidden","false");
+        document.body.classList.add("film-playing");
+        launcher.style.display = "none";
+      }
+      startTime = performance.now() - (seconds * 1000);
+      render(seconds);
+
+      var audio = getAudio();
+      if (audio && filmSession) {
+        try { audio.currentTime = seconds; } catch (e) {}
+      }
+      if (filmTimer) clearTimeout(filmTimer);
+      filmTimer = setTimeout(frame, 80);
+    }
+
+    function togglePlayPause() {
+      if (running) {
+        var elapsed = Math.max(0, Math.min(total, (performance.now() - startTime) / 1000));
+        running = false;
+        if (filmTimer) { clearTimeout(filmTimer); filmTimer = 0; }
+        render(elapsed);
+        var audio = getAudio();
+        audioWasPlayingBeforePause = !!(audio && filmSession && !audio.paused && !audio.ended);
+        if (audio && filmSession) audio.pause();
+        return;
+      }
+
+      var current = 0;
+      var audio = getAudio();
+      if (audio && filmSession && !audio.paused && isFinite(audio.currentTime)) current = audio.currentTime;
+      else {
+        var percent = bar ? parseFloat(bar.style.width) || 0 : 0;
+        current = (percent / 100) * total;
+      }
+      if (current >= total - 0.1) current = 0;
+      running = true;
+      startTime = performance.now() - current * 1000;
+      film.classList.add("playing");
+      film.setAttribute("aria-hidden","false");
+      document.body.classList.add("film-playing");
+      launcher.style.display = "none";
+      if (audio && filmSession) {
+        try { audio.currentTime = current; } catch (e) {}
+        if (audioWasPlayingBeforePause) {
+          var promise = audio.play();
+          if (promise && typeof promise.catch === "function") promise.catch(function () {});
+        }
+      }
+      frame();
+    }
+
     function play() {
       if (running) return;
 
@@ -4319,6 +4483,38 @@ music.addEventListener("error", function () {
 
     launch.addEventListener("click", play);
     close.addEventListener("click", stop);
+
+    if (back10) back10.addEventListener("click", function(){
+      var current = Math.max(0, (performance.now() - startTime) / 1000);
+      seekTo(current - 10);
+    });
+
+    if (forward10) forward10.addEventListener("click", function(){
+      var current = Math.max(0, (performance.now() - startTime) / 1000);
+      seekTo(current + 10);
+    });
+
+    if (playPause) playPause.addEventListener("click", function(){
+      togglePlayPause();
+    });
+
+    function seekFromPointer(clientX) {
+      if (!seekBar) return;
+      var rect = seekBar.getBoundingClientRect();
+      var ratio = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+      seekTo(ratio * total);
+    }
+
+    if (seekBar) {
+      seekBar.addEventListener("click", function(e){ seekFromPointer(e.clientX); });
+      seekBar.addEventListener("keydown", function(e){
+        var current = running ? Math.max(0, (performance.now() - startTime) / 1000) : ((parseFloat(bar.style.width) || 0) / 100) * total;
+        if (e.key === "ArrowLeft") { e.preventDefault(); seekTo(current - 5); }
+        if (e.key === "ArrowRight") { e.preventDefault(); seekTo(current + 5); }
+        if (e.key === "Home") { e.preventDefault(); seekTo(0); }
+        if (e.key === "End") { e.preventDefault(); seekTo(total - 0.1); }
+      });
+    }
 
     // The user can now stop/start music at any time without stopping the film.
     if (musicBtn) {
