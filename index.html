@@ -1807,6 +1807,20 @@ body.film-playing .film-music-toggle{
   cursor:pointer;
   transition:transform .25s ease, background .25s ease, box-shadow .25s ease;
 }
+
+/* Visibility fix: keep SHARE WITH FAMILY clearly readable on the light save-date background */
+.save-date-section .premium-action:not(.primary){
+  color:#5a2938;
+  background:rgba(90,41,56,.045);
+  border-color:rgba(90,41,56,.32);
+  font-weight:600;
+}
+.save-date-section .premium-action:not(.primary):hover{
+  color:#3f1b27;
+  background:rgba(90,41,56,.08);
+  border-color:rgba(90,41,56,.48);
+}
+
 .premium-action:hover{
   transform:translateY(-2px);
   background:rgba(232,201,135,.16);
