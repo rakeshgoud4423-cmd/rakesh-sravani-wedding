@@ -2758,7 +2758,7 @@ html,body{max-width:100%;overflow-x:hidden}
 #weddingFilm .venue-scene .cinematic-world{
   background-image:
     linear-gradient(180deg,rgba(255,248,232,.04),rgba(255,248,232,0) 50%,rgba(8,7,5,.22) 100%),
-    url("https://image.wedmegood.com/resized/720X/uploads/member/4494264/1741245111_20240822_194339.jpg") !important;
+    url("https://www.marriagecolours.com/wp-content/uploads/2024/10/city-wedding-reception-taj-coromandel.jpg") !important;
   background-size:cover !important;
   background-position:center center !important;
   animation:finalVenuePhoto 13s ease-in-out infinite alternate !important;
@@ -2779,7 +2779,7 @@ html,body{max-width:100%;overflow-x:hidden}
 #weddingFilm .telugu-scene .cinematic-world{
   background-image:
     linear-gradient(180deg,rgba(5,9,14,.02),rgba(255,196,90,.03) 48%,rgba(7,4,2,.22) 100%),
-    url("https://templesofkerala.org/temples/thrissur/avanangattilkalaritemple/6.jpg") !important;
+    url("https://templesofkerala.org/alappuzha/img/lekshminarayanatemple/5.webp") !important;
   background-size:cover !important;
   background-position:center center !important;
   animation:finalTemplePhoto 13s ease-in-out infinite alternate !important;
@@ -3114,6 +3114,57 @@ html,body{max-width:100%;overflow-x:hidden}
 }
 </style>
 
+
+<style id="final-mobile-film-polish-v2">
+/* =========================================================
+   FINAL MOBILE POLISH V2
+   - Elegant venue + temple backgrounds
+   - No white flash while family/couple photos decode
+   - Static photo backgrounds on phones
+   - No mobile scene compositing seams
+   ========================================================= */
+@media (max-width:600px){
+  /* Keep the two new background worlds calm and sharp on phones. */
+  #weddingFilm .venue-scene .cinematic-world,
+  #weddingFilm .telugu-scene .cinematic-world{
+    background-position:center center !important;
+    background-size:cover !important;
+    animation:none !important;
+    transform:none !important;
+    filter:none !important;
+    -webkit-filter:none !important;
+  }
+
+  /* The photo frame must never be white while an image is decoding. */
+  #weddingFilm .film-photo-card,
+  #weddingFilm .photo-card{
+    background:linear-gradient(180deg,#24141a,#120a0f) !important;
+    border-color:rgba(245,225,180,.72) !important;
+  }
+
+  #weddingFilm .film-photo-card img,
+  #weddingFilm .photo-card img{
+    opacity:1 !important;
+    background:#171015 !important;
+  }
+
+  /* Avoid an opacity cross-fade revealing two scenes at once on weaker phones.
+     A short fade is retained, but the outgoing scene is removed immediately. */
+  #weddingFilm .film-scene{
+    transition:opacity .22s ease !important;
+  }
+
+  /* Remove the final sources of white/light flashes from photo-card effects. */
+  #weddingFilm .photo-card::before,
+  #weddingFilm .photo-card::after,
+  #weddingFilm .film-photo-card::before,
+  #weddingFilm .film-photo-card::after{
+    display:none !important;
+    animation:none !important;
+    opacity:0 !important;
+  }
+}
+</style>
 </head>
 
 <body>
@@ -3146,19 +3197,19 @@ html,body{max-width:100%;overflow-x:hidden}
     <section class="film-scene rings-scene">
       <div class="cinematic-world" aria-hidden="true"></div>
       <div class="scene-3d"><div class="depth-sky"></div><div class="starfield"></div><div class="horizon-glow"></div><div class="ring3d"></div><div class="arch"></div><div class="petals"><span></span><span></span><span></span><span></span><span></span><span></span></div></div>
-      <div class="scene-content"><span class="scene-number"></span><div class="film-photo-card scene-photo-3d"><img src="images/rings.JPG" alt="Wedding rings" onerror="this.style.display='none'"></div><div class="film-kicker">TWO PROMISES</div><h2>One beautiful forever</h2><div class="scene-caption">A promise to walk together, <strong>always.</strong></div></div>
+      <div class="scene-content"><span class="scene-number"></span><div class="film-photo-card scene-photo-3d"><img src="images/rings.JPG" loading="eager" decoding="async" alt="Wedding rings" onerror="this.style.display='none'"></div><div class="film-kicker">TWO PROMISES</div><h2>One beautiful forever</h2><div class="scene-caption">A promise to walk together, <strong>always.</strong></div></div>
     </section>
 
     <section class="film-scene couple-scene">
       <div class="cinematic-world" aria-hidden="true"></div>
       <div class="scene-3d"><div class="depth-sky"></div><div class="horizon-glow"></div><div class="couple-aura"></div><div class="mandap"><i class="pillar p1"></i><i class="pillar p2"></i></div><div class="petals"><span></span><span></span><span></span><span></span><span></span><span></span></div><div class="depth-dust"></div></div>
-      <div class="scene-content"><span class="scene-number"></span><div class="photo-card scene-photo-3d"><img src="images/couple1.JPG" alt="Rakesh and Sravani" onerror="this.style.display='none'"></div><div class="film-kicker">TWO HEARTS</div><h2>One beautiful forever</h2></div>
+      <div class="scene-content"><span class="scene-number"></span><div class="photo-card scene-photo-3d"><img src="images/couple1.JPG" loading="eager" decoding="async" alt="Rakesh and Sravani" onerror="this.style.display='none'"></div><div class="film-kicker">TWO HEARTS</div><h2>One beautiful forever</h2></div>
     </section>
 
     <section class="film-scene family-scene">
       <div class="cinematic-world" aria-hidden="true"></div>
       <div class="scene-3d"><div class="depth-sky"></div><div class="starfield"></div><div class="horizon-glow"></div><div class="mandap"><i class="pillar p1"></i><i class="pillar p2"></i></div><div class="petals"><span></span><span></span><span></span><span></span><span></span><span></span></div></div>
-      <div class="scene-content"><span class="scene-number"></span><div class="film-photo-card scene-photo-3d"><img src="images/family.JPG" alt="Rakesh and Sravani together" onerror="this.style.display='none'"></div><div class="family-lines">TOGETHER WITH THEIR FAMILIES</div><h2>Two families</h2><div class="scene-caption">One beautiful beginning</div></div>
+      <div class="scene-content"><span class="scene-number"></span><div class="film-photo-card scene-photo-3d"><img src="images/family.JPG" loading="eager" decoding="async" alt="Rakesh and Sravani together" onerror="this.style.display='none'"></div><div class="family-lines">TOGETHER WITH THEIR FAMILIES</div><h2>Two families</h2><div class="scene-caption">One beautiful beginning</div></div>
     </section>
 
     <section class="film-scene venue-scene">
@@ -3182,7 +3233,7 @@ html,body{max-width:100%;overflow-x:hidden}
     <section class="film-scene hero-scene">
       <div class="cinematic-world" aria-hidden="true"></div>
       <div class="scene-3d"><div class="depth-sky"></div><div class="horizon-glow"></div><div class="mandap"><i class="pillar p1"></i><i class="pillar p2"></i></div><div class="petals"><span></span><span></span><span></span><span></span><span></span><span></span></div><div class="depth-dust"></div></div>
-      <div class="scene-content"><span class="scene-number"></span><div class="film-photo-card scene-photo-3d"><img src="images/couple.JPG" alt="Rakesh and Sravani" onerror="this.style.display='none'"></div><div class="film-kicker">WITH LOVE &amp; JOY</div><h2>Our forever starts here</h2></div>
+      <div class="scene-content"><span class="scene-number"></span><div class="film-photo-card scene-photo-3d"><img src="images/couple.JPG" loading="eager" decoding="async" alt="Rakesh and Sravani" onerror="this.style.display='none'"></div><div class="film-kicker">WITH LOVE &amp; JOY</div><h2>Our forever starts here</h2></div>
     </section>
 
     <section class="film-scene finale-scene">
@@ -4097,6 +4148,20 @@ music.addEventListener("error", function () {
     var close = document.getElementById("closeFilm");
     var launcher = document.getElementById("cinemaLauncher");
     var scenes = Array.prototype.slice.call(document.querySelectorAll("#weddingFilm .film-scene"));
+
+    // Pre-decode all real film photos before their scene is shown.
+    // This prevents the white placeholder/frame flash seen on mobile.
+    scenes.forEach(function(scene){
+      var img = scene.querySelector(".film-photo-card img, .photo-card img");
+      if (!img) return;
+      img.setAttribute("loading", "eager");
+      try {
+        if (img.decode) {
+          img.decode().catch(function(){});
+        }
+      } catch (e) {}
+    });
+
     var bar = document.getElementById("filmBar");
     var clock = document.getElementById("filmClock");
     var musicBtn = document.getElementById("filmMusicToggle");
@@ -4129,6 +4194,7 @@ music.addEventListener("error", function () {
       }
       scenes.forEach(function(scene, i) {
         scene.classList.toggle("active", i === idx);
+        scene.style.willChange = (i === idx) ? "opacity" : "auto";
       });
       bar.style.width = Math.min(100, (t / total) * 100) + "%";
       clock.textContent = formatTime(t);
