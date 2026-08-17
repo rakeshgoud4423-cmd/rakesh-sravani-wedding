@@ -2293,7 +2293,7 @@ body.film-playing .film-music-toggle{
 @keyframes photoDrift08{from{transform:scale(1.045) translate3d(0,0,0)}to{transform:scale(1.12) translate3d(-1.4%,-.8%,0)}}
 
 /* 09 — real night wedding garden for a warm human finale */
-#weddingFilm .finale-scene > .cinematic-world{background-image:linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.42)),url('https://sjretreat.com/images/wedding_photo/DSC_0584.JPG')!important;animation:photoDrift09 14s ease-in-out infinite alternate}
+#weddingFilm .finale-scene > .cinematic-world{background-image:linear-gradient(180deg,rgba(28,8,18,.20),rgba(12,5,10,.62)),url('https://images.pexels.com/photos/34597474/pexels-photo-34597474.jpeg?auto=compress&cs=tinysrgb&w=1920')!important;background-size:cover!important;background-position:center center!important;animation:none!important}
 @keyframes photoDrift09{from{transform:scale(1.045) translate3d(0,0,0)}to{transform:scale(1.12) translate3d(1%,-1%,0)}}
 
 /* Remove most of the old artificial world decorations so the photography leads. */
@@ -3163,6 +3163,22 @@ html,body{max-width:100%;overflow-x:hidden}
     animation:none !important;
     opacity:0 !important;
   }
+}
+</style>
+<style id="finale-background-v7">
+/* V7: elegant warm sunset reception ending */
+#weddingFilm .finale-scene > .cinematic-world{
+  background-image:linear-gradient(180deg,rgba(28,8,18,.20),rgba(12,5,10,.62)),url('https://images.pexels.com/photos/34597474/pexels-photo-34597474.jpeg?auto=compress&cs=tinysrgb&w=1920')!important;
+  background-size:cover!important;
+  background-position:center center!important;
+  animation:none!important;
+  filter:none!important;
+}
+#weddingFilm .finale-scene .scene-content{
+  text-shadow:0 3px 18px rgba(0,0,0,.58),0 1px 3px rgba(0,0,0,.8);
+}
+@media(max-width:600px){
+  #weddingFilm .finale-scene > .cinematic-world{background-position:center center!important;transform:none!important;}
 }
 </style>
 </head>
@@ -4496,5 +4512,442 @@ if (typeof _originalToggleMusic === "function") {
 </script>
 
 <!-- Natural background sources used in this version: BookMyPlanner/Udaipur; Farmhouse Collective; Magnific palace courtyard; WedMeGood; Travel + Leisure Asia; WeddingSutra; Chasing the Moon; SJ Retreat. Some source images may have separate usage terms; verify before public/commercial distribution. -->
+
+
+<style id="final-venkateshwara-temple-background">
+/* FINAL TELUGU SCENE — SRI VENKATESWARA TEMPLE / TIRUMALA
+   Chosen for the Sri Venkateshwara blessing scene: centered golden
+   gopuram, recognizable Vaishnava tilak detail, green hills and sky.
+   Kept static on mobile for maximum smoothness. */
+#weddingFilm .telugu-scene .cinematic-world{
+  background-image:
+    linear-gradient(180deg,rgba(7,4,2,.10) 0%,rgba(7,4,2,.02) 35%,rgba(8,4,2,.48) 100%),
+    url("https://chennaisstravels.com/wp-content/uploads/2025/11/20251104_1543_Tirupati-Temple-View_simple_compose_01k975jwx8fj7vc2wawvqm6gwe-683x1024.png") !important;
+  background-size:cover !important;
+  background-position:center 38% !important;
+  background-repeat:no-repeat !important;
+  animation:none !important;
+  filter:none !important;
+  transform:none !important;
+}
+
+/* Clean readable area behind the Telugu title without hiding the temple. */
+#weddingFilm .telugu-scene .cinematic-world::before{
+  content:"" !important;
+  position:absolute !important;
+  inset:0 !important;
+  width:auto !important;
+  height:auto !important;
+  background:
+    linear-gradient(180deg,rgba(0,0,0,.02) 0%,rgba(0,0,0,.02) 34%,rgba(35,13,3,.18) 54%,rgba(7,3,1,.58) 100%) !important;
+  border:0 !important;
+  border-radius:0 !important;
+  box-shadow:none !important;
+  transform:none !important;
+  clip-path:none !important;
+  animation:none !important;
+}
+
+#weddingFilm .telugu-scene .cinematic-world::after{
+  content:"" !important;
+  position:absolute !important;
+  inset:0 !important;
+  width:auto !important;
+  height:auto !important;
+  background:radial-gradient(ellipse at 50% 43%,rgba(255,222,145,.12),transparent 32%,rgba(0,0,0,.20) 100%) !important;
+  border:0 !important;
+  transform:none !important;
+  animation:none !important;
+  mask-image:none !important;
+}
+
+/* Mobile: use the portrait composition naturally instead of enlarging it. */
+@media(max-width:600px){
+  #weddingFilm .telugu-scene .cinematic-world{
+    background-size:cover !important;
+    background-position:center 42% !important;
+    filter:none !important;
+    animation:none !important;
+    transform:none !important;
+  }
+  #weddingFilm .telugu-scene .cinematic-world::before{
+    background:linear-gradient(180deg,rgba(0,0,0,.02) 0%,rgba(0,0,0,.03) 38%,rgba(7,3,1,.62) 100%) !important;
+  }
+  #weddingFilm .telugu-scene .cinematic-world::after{
+    background:radial-gradient(ellipse at 50% 43%,rgba(255,222,145,.10),transparent 30%,rgba(0,0,0,.18) 100%) !important;
+  }
+}
+</style>
+
+
+<style id="final-brighter-venue-temple-text-v4">
+/* V4: restore the previously preferred Function Hall + Divine Blessings
+   backgrounds and make all scene typography bright, crisp and readable. */
+#weddingFilm .venue-scene .cinematic-world{
+  background-image:
+    linear-gradient(180deg,rgba(8,18,12,.02),rgba(8,8,6,.08) 55%,rgba(5,4,3,.28) 100%),
+    url("https://image.wedmegood.com/resized/720X/uploads/member/2651698/1772009295_ChatGPT_Image_Feb_25__2026__02_18_06_PM.png?crop=9%2C171%2C1515%2C852") !important;
+  background-size:cover !important;
+  background-position:center center !important;
+  filter:saturate(1.08) contrast(1.02) brightness(1.12) !important;
+  animation:none !important;
+  transform:none !important;
+}
+#weddingFilm .telugu-scene .cinematic-world{
+  background-image:
+    linear-gradient(180deg,rgba(20,10,2,.02),rgba(12,6,2,.08) 55%,rgba(5,2,1,.30) 100%),
+    url("https://images.travelandleisureasia.com/wp-content/uploads/sites/2/2024/05/30115516/Untitled-design-36.jpg") !important;
+  background-size:cover !important;
+  background-position:center center !important;
+  filter:saturate(1.06) contrast(1.02) brightness(1.08) !important;
+  animation:none !important;
+  transform:none !important;
+}
+
+/* Subtle readability layers — preserve the photos instead of darkening them heavily. */
+#weddingFilm .venue-scene .cinematic-world::before{
+  background:linear-gradient(180deg,rgba(0,0,0,0) 0%,rgba(0,0,0,.02) 38%,rgba(8,5,3,.24) 100%) !important;
+}
+#weddingFilm .telugu-scene .cinematic-world::before{
+  background:linear-gradient(180deg,rgba(0,0,0,0) 0%,rgba(0,0,0,.02) 38%,rgba(8,4,1,.28) 100%) !important;
+}
+#weddingFilm .venue-scene .cinematic-world::after,
+#weddingFilm .telugu-scene .cinematic-world::after{
+  background:radial-gradient(ellipse at 50% 46%,rgba(255,235,190,.06),transparent 48%,rgba(0,0,0,.08) 100%) !important;
+}
+
+/* Bright premium wedding typography */
+#weddingFilm .venue-scene .film-kicker,
+#weddingFilm .telugu-scene .film-kicker{
+  color:#ffe8b0 !important;
+  opacity:1 !important;
+  text-shadow:0 2px 5px rgba(0,0,0,.92),0 0 14px rgba(0,0,0,.72) !important;
+}
+#weddingFilm .venue-scene h2,
+#weddingFilm .telugu-scene h2{
+  color:#fff7df !important;
+  opacity:1 !important;
+  text-shadow:0 3px 8px rgba(0,0,0,.95),0 0 22px rgba(0,0,0,.70) !important;
+  -webkit-text-stroke:.15px rgba(255,248,225,.35);
+}
+#weddingFilm .venue-scene p,
+#weddingFilm .telugu-scene p{
+  color:#fff4dc !important;
+  opacity:1 !important;
+  text-shadow:0 2px 7px rgba(0,0,0,.96),0 0 15px rgba(0,0,0,.68) !important;
+}
+
+/* Give the text a very soft local backdrop, not a dark overlay across the photo. */
+#weddingFilm .venue-scene .scene-content,
+#weddingFilm .telugu-scene .scene-content{
+  text-shadow:none !important;
+}
+#weddingFilm .venue-scene .film-kicker,
+#weddingFilm .venue-scene h2,
+#weddingFilm .venue-scene p,
+#weddingFilm .telugu-scene .film-kicker,
+#weddingFilm .telugu-scene h2,
+#weddingFilm .telugu-scene p{
+  position:relative;
+  z-index:3;
+}
+
+@media(max-width:600px){
+  #weddingFilm .venue-scene .cinematic-world,
+  #weddingFilm .telugu-scene .cinematic-world{
+    animation:none !important;
+    transform:none !important;
+    filter:saturate(1.05) contrast(1.02) brightness(1.06) !important;
+    background-position:center center !important;
+  }
+  #weddingFilm .venue-scene .film-kicker,
+  #weddingFilm .telugu-scene .film-kicker{
+    color:#ffe9b5 !important;
+    text-shadow:0 2px 6px rgba(0,0,0,.96),0 0 12px rgba(0,0,0,.75) !important;
+  }
+  #weddingFilm .venue-scene h2,
+  #weddingFilm .telugu-scene h2{
+    color:#fff9e8 !important;
+    text-shadow:0 3px 8px rgba(0,0,0,.98),0 0 18px rgba(0,0,0,.72) !important;
+  }
+  #weddingFilm .venue-scene p,
+  #weddingFilm .telugu-scene p{
+    color:#fff5df !important;
+    text-shadow:0 2px 6px rgba(0,0,0,.98),0 0 14px rgba(0,0,0,.72) !important;
+  }
+}
+</style>
+
+<style id="visible-text-final-v5">
+/* FINAL TEXT VISIBILITY POLISH — keep the existing backgrounds, only improve contrast. */
+#weddingFilm .venue-scene .film-kicker,
+#weddingFilm .telugu-scene .film-kicker,
+#weddingFilm .date-reveal .film-kicker{
+  color:#fff0b8 !important;
+  opacity:1 !important;
+  -webkit-text-stroke:.65px rgba(52,18,27,.82) !important;
+  text-shadow:0 2px 3px rgba(0,0,0,.95),0 0 10px rgba(0,0,0,.85) !important;
+  font-weight:600 !important;
+}
+
+#weddingFilm .venue-scene h2,
+#weddingFilm .telugu-scene h2{
+  color:#fffaf0 !important;
+  opacity:1 !important;
+  -webkit-text-stroke:.8px rgba(48,17,25,.82) !important;
+  text-shadow:0 3px 5px rgba(0,0,0,.98),0 0 16px rgba(0,0,0,.82) !important;
+  font-weight:500 !important;
+}
+
+#weddingFilm .venue-scene p,
+#weddingFilm .telugu-scene p{
+  color:#fff8e5 !important;
+  opacity:1 !important;
+  -webkit-text-stroke:.45px rgba(48,17,25,.78) !important;
+  text-shadow:0 2px 4px rgba(0,0,0,.98),0 0 11px rgba(0,0,0,.82) !important;
+  font-weight:500 !important;
+}
+
+/* Date scene: crisp ivory with a subtle deep-wine outline so it remains readable
+   over both the bright sunset/water and dark greenery. */
+#weddingFilm .date-reveal .date-main{
+  color:#fffaf0 !important;
+  opacity:1 !important;
+  -webkit-text-stroke:1px rgba(57,20,28,.88) !important;
+  text-shadow:0 3px 6px rgba(0,0,0,.98),0 0 18px rgba(0,0,0,.78) !important;
+  font-weight:500 !important;
+}
+#weddingFilm .date-reveal .date-sub,
+#weddingFilm .date-reveal .date-place{
+  color:#fff3c9 !important;
+  opacity:1 !important;
+  -webkit-text-stroke:.55px rgba(57,20,28,.82) !important;
+  text-shadow:0 2px 4px rgba(0,0,0,.98),0 0 12px rgba(0,0,0,.8) !important;
+  font-weight:600 !important;
+}
+
+/* Very soft center contrast only behind the typography; the photographs remain visible. */
+#weddingFilm .venue-scene .scene-content::before,
+#weddingFilm .telugu-scene .scene-content::before,
+#weddingFilm .date-reveal .scene-content::before{
+  content:"";
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:min(92vw,980px);
+  height:min(42vh,360px);
+  transform:translate(-50%,-50%);
+  background:radial-gradient(ellipse,rgba(25,8,14,.20) 0%,rgba(25,8,14,.10) 42%,transparent 74%);
+  z-index:-1;
+  pointer-events:none;
+}
+
+@media(max-width:600px){
+  #weddingFilm .venue-scene .film-kicker,
+  #weddingFilm .telugu-scene .film-kicker,
+  #weddingFilm .date-reveal .film-kicker{
+    color:#fff1bd !important;
+    -webkit-text-stroke:.55px rgba(48,16,24,.9) !important;
+    text-shadow:0 2px 4px rgba(0,0,0,1),0 0 9px rgba(0,0,0,.9) !important;
+  }
+  #weddingFilm .venue-scene h2,
+  #weddingFilm .telugu-scene h2,
+  #weddingFilm .date-reveal .date-main{
+    color:#fffdf5 !important;
+    -webkit-text-stroke:.75px rgba(48,16,24,.9) !important;
+    text-shadow:0 3px 5px rgba(0,0,0,1),0 0 13px rgba(0,0,0,.88) !important;
+  }
+  #weddingFilm .venue-scene p,
+  #weddingFilm .telugu-scene p,
+  #weddingFilm .date-reveal .date-sub,
+  #weddingFilm .date-reveal .date-place{
+    color:#fff7dc !important;
+    -webkit-text-stroke:.45px rgba(48,16,24,.9) !important;
+    text-shadow:0 2px 4px rgba(0,0,0,1),0 0 10px rgba(0,0,0,.88) !important;
+  }
+}
+</style>
+
+
+<style id="luxury-text-contrast-v6">
+/* V6 — premium typography contrast: no grey/washed-out text.
+   Keep the chosen photographs. Add a restrained wine/champagne contrast field
+   behind the typography so the words stay beautiful AND unmistakable. */
+
+/* FUNCTION HALL / CELEBRATION */
+#weddingFilm .venue-scene .scene-content{
+  width:min(92vw,980px) !important;
+  max-width:980px !important;
+  box-sizing:border-box !important;
+  padding:24px 34px 28px !important;
+  border-radius:22px !important;
+  background:linear-gradient(90deg,
+    transparent 0%,
+    rgba(35,9,20,.20) 9%,
+    rgba(35,9,20,.48) 28%,
+    rgba(35,9,20,.48) 72%,
+    rgba(35,9,20,.20) 91%,
+    transparent 100%) !important;
+  border:1px solid rgba(255,224,163,.20) !important;
+  box-shadow:0 14px 45px rgba(0,0,0,.22) !important;
+  text-align:center !important;
+}
+#weddingFilm .venue-scene .scene-content::before{
+  content:"" !important;
+  position:absolute !important;
+  inset:0 !important;
+  width:auto !important;
+  height:auto !important;
+  transform:none !important;
+  z-index:-1 !important;
+  background:radial-gradient(ellipse at center,
+    rgba(23,6,15,.42) 0%,
+    rgba(23,6,15,.18) 52%,
+    transparent 78%) !important;
+  pointer-events:none !important;
+}
+#weddingFilm .venue-scene .film-kicker{
+  color:#f6cf79 !important;
+  opacity:1 !important;
+  font-weight:700 !important;
+  letter-spacing:6px !important;
+  text-shadow:0 2px 3px rgba(0,0,0,.95),0 0 8px rgba(0,0,0,.65) !important;
+  -webkit-text-stroke:0 !important;
+}
+#weddingFilm .venue-scene h2{
+  color:#fff8e8 !important;
+  opacity:1 !important;
+  font-weight:500 !important;
+  text-shadow:0 3px 5px rgba(20,5,12,.98),0 0 10px rgba(20,5,12,.72) !important;
+  -webkit-text-stroke:0 !important;
+  letter-spacing:.5px !important;
+}
+#weddingFilm .venue-scene p{
+  color:#f9dfaa !important;
+  opacity:1 !important;
+  font-weight:600 !important;
+  letter-spacing:3px !important;
+  text-shadow:0 2px 4px rgba(0,0,0,.98),0 0 8px rgba(0,0,0,.68) !important;
+  -webkit-text-stroke:0 !important;
+}
+
+/* DATE / 23 AUGUST */
+#weddingFilm .date-reveal .scene-content{
+  width:100% !important;
+  max-width:none !important;
+  box-sizing:border-box !important;
+  padding:30px 4vw 34px !important;
+  background:linear-gradient(90deg,
+    transparent 0%,
+    rgba(22,7,13,.14) 7%,
+    rgba(22,7,13,.42) 20%,
+    rgba(22,7,13,.48) 50%,
+    rgba(22,7,13,.42) 80%,
+    rgba(22,7,13,.14) 93%,
+    transparent 100%) !important;
+  border-top:1px solid rgba(255,221,155,.16) !important;
+  border-bottom:1px solid rgba(255,221,155,.16) !important;
+  text-align:center !important;
+}
+#weddingFilm .date-reveal .scene-content::before{
+  content:"" !important;
+  position:absolute !important;
+  inset:0 !important;
+  width:auto !important;
+  height:auto !important;
+  transform:none !important;
+  z-index:-1 !important;
+  background:radial-gradient(ellipse at center,
+    rgba(15,5,10,.36) 0%,
+    rgba(15,5,10,.16) 48%,
+    transparent 76%) !important;
+  pointer-events:none !important;
+}
+#weddingFilm .date-reveal .film-kicker{
+  color:#f5cd75 !important;
+  opacity:1 !important;
+  font-weight:700 !important;
+  letter-spacing:7px !important;
+  text-shadow:0 2px 4px rgba(0,0,0,.95),0 0 8px rgba(0,0,0,.7) !important;
+  -webkit-text-stroke:0 !important;
+}
+#weddingFilm .date-reveal .date-main{
+  color:#fff9ea !important;
+  opacity:1 !important;
+  font-weight:500 !important;
+  text-shadow:0 4px 7px rgba(15,4,9,.98),0 0 12px rgba(15,4,9,.70) !important;
+  -webkit-text-stroke:0 !important;
+}
+#weddingFilm .date-reveal .date-sub{
+  color:#f6d98f !important;
+  opacity:1 !important;
+  font-weight:700 !important;
+  text-shadow:0 2px 4px rgba(0,0,0,.98),0 0 8px rgba(0,0,0,.68) !important;
+  -webkit-text-stroke:0 !important;
+}
+#weddingFilm .date-reveal .date-place{
+  color:#fff4d9 !important;
+  opacity:1 !important;
+  font-weight:600 !important;
+  text-shadow:0 2px 4px rgba(0,0,0,.98),0 0 8px rgba(0,0,0,.68) !important;
+  -webkit-text-stroke:0 !important;
+}
+
+/* Mobile: make the contrast field a little stronger while staying elegant. */
+@media(max-width:600px){
+  #weddingFilm .venue-scene .scene-content{
+    width:94vw !important;
+    padding:18px 14px 21px !important;
+    border-radius:16px !important;
+    background:linear-gradient(90deg,
+      rgba(35,9,20,.18) 0%,
+      rgba(35,9,20,.54) 18%,
+      rgba(35,9,20,.58) 50%,
+      rgba(35,9,20,.54) 82%,
+      rgba(35,9,20,.18) 100%) !important;
+  }
+  #weddingFilm .venue-scene .film-kicker{
+    color:#f8d47f !important;
+    letter-spacing:3.5px !important;
+    text-shadow:0 2px 4px #000,0 0 7px rgba(0,0,0,.8) !important;
+  }
+  #weddingFilm .venue-scene h2{
+    color:#fffaf0 !important;
+    text-shadow:0 3px 5px #000,0 0 10px rgba(0,0,0,.8) !important;
+  }
+  #weddingFilm .venue-scene p{
+    color:#ffe2a7 !important;
+    letter-spacing:1.5px !important;
+    text-shadow:0 2px 4px #000,0 0 8px rgba(0,0,0,.8) !important;
+  }
+  #weddingFilm .date-reveal .scene-content{
+    padding:22px 8px 24px !important;
+    background:linear-gradient(90deg,
+      rgba(20,6,12,.16) 0%,
+      rgba(20,6,12,.48) 15%,
+      rgba(20,6,12,.58) 50%,
+      rgba(20,6,12,.48) 85%,
+      rgba(20,6,12,.16) 100%) !important;
+  }
+  #weddingFilm .date-reveal .film-kicker{
+    color:#f8d681 !important;
+    letter-spacing:3.5px !important;
+    text-shadow:0 2px 4px #000,0 0 8px rgba(0,0,0,.82) !important;
+  }
+  #weddingFilm .date-reveal .date-main{
+    color:#fffaf0 !important;
+    text-shadow:0 3px 6px #000,0 0 11px rgba(0,0,0,.82) !important;
+  }
+  #weddingFilm .date-reveal .date-sub{
+    color:#f8d98d !important;
+    text-shadow:0 2px 4px #000,0 0 8px rgba(0,0,0,.8) !important;
+  }
+  #weddingFilm .date-reveal .date-place{
+    color:#fff4da !important;
+    text-shadow:0 2px 4px #000,0 0 8px rgba(0,0,0,.8) !important;
+  }
+}
+</style>
+
 </body>
 </html>
