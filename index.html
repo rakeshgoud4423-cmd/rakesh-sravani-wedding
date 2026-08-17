@@ -2903,6 +2903,217 @@ html,body{max-width:100%;overflow-x:hidden}
   }
 }
 </style>
+
+<style id="mobile-film-performance-and-photo-design">
+/* =========================================================
+   FINAL MOBILE FILM PERFORMANCE + PHOTO COMPOSITION FIX
+   Desktop cinematic effects remain unchanged.
+   Mobile uses static layers + opacity-only scene changes.
+   ========================================================= */
+@media (max-width:600px){
+  /* ---- 1. HARD DISABLE EXPENSIVE MOBILE COMPOSITING ---- */
+  #weddingFilm,
+  #weddingFilm .film-scenes,
+  #weddingFilm .film-scene,
+  #weddingFilm .scene-content,
+  #weddingFilm .cinematic-world,
+  #weddingFilm .cinematic-world::before,
+  #weddingFilm .cinematic-world::after,
+  #weddingFilm .scene-3d,
+  #weddingFilm .scene-3d > *,
+  #weddingFilm .photo-card,
+  #weddingFilm .film-photo-card,
+  #weddingFilm .photo-card img,
+  #weddingFilm .film-photo-card img{
+    perspective:none !important;
+    transform-style:flat !important;
+    -webkit-transform-style:flat !important;
+  }
+
+  #weddingFilm .film-scene{
+    transform:none !important;
+    -webkit-transform:none !important;
+    filter:none !important;
+    -webkit-filter:none !important;
+    animation:none !important;
+    transition:opacity .42s ease !important;
+    will-change:opacity !important;
+    backface-visibility:hidden !important;
+    -webkit-backface-visibility:hidden !important;
+  }
+
+  #weddingFilm .film-scene.active{
+    transform:none !important;
+    filter:none !important;
+    -webkit-filter:none !important;
+    animation:none !important;
+  }
+
+  #weddingFilm .cinematic-world,
+  #weddingFilm .cinematic-world::before,
+  #weddingFilm .cinematic-world::after,
+  #weddingFilm .scene-3d,
+  #weddingFilm .scene-3d > *,
+  #weddingFilm .photo-card,
+  #weddingFilm .film-photo-card,
+  #weddingFilm .photo-card img,
+  #weddingFilm .film-photo-card img{
+    animation:none !important;
+    transition:none !important;
+    transform:none !important;
+    -webkit-transform:none !important;
+    filter:none !important;
+    -webkit-filter:none !important;
+    will-change:auto !important;
+  }
+
+  /* Remove decorative moving layers entirely on phones.
+     They are the main source of GPU jitter/lines on weaker devices. */
+  #weddingFilm .scene-3d,
+  #weddingFilm .scene-3d > *,
+  #weddingFilm .film-grain{
+    display:none !important;
+  }
+
+  /* ---- 2. MAKE THE PHOTO + TEXT LOOK INTENTIONAL, NOT PHOTO-ON-PHOTO ---- */
+  #weddingFilm .rings-scene .scene-content,
+  #weddingFilm .couple-scene .scene-content,
+  #weddingFilm .family-scene .scene-content,
+  #weddingFilm .hero-scene .scene-content{
+    width:min(92vw,430px) !important;
+    max-width:92vw !important;
+    margin:0 auto !important;
+    padding:12px 12px 18px !important;
+    box-sizing:border-box !important;
+    border:1px solid rgba(245,225,180,.28) !important;
+    border-radius:22px !important;
+    background:linear-gradient(180deg,rgba(28,12,18,.86),rgba(18,8,13,.92)) !important;
+    box-shadow:0 18px 55px rgba(0,0,0,.42) !important;
+    text-align:center !important;
+    align-items:center !important;
+    backdrop-filter:none !important;
+    -webkit-backdrop-filter:none !important;
+  }
+
+  #weddingFilm .rings-scene .film-photo-card,
+  #weddingFilm .family-scene .film-photo-card,
+  #weddingFilm .hero-scene .film-photo-card,
+  #weddingFilm .couple-scene .photo-card{
+    width:100% !important;
+    max-width:100% !important;
+    height:auto !important;
+    aspect-ratio:1105 / 676 !important;
+    margin:0 auto 12px !important;
+    padding:5px !important;
+    box-sizing:border-box !important;
+    border:1px solid rgba(255,239,207,.78) !important;
+    border-radius:15px !important;
+    background:rgba(255,248,230,.96) !important;
+    box-shadow:0 10px 28px rgba(0,0,0,.38) !important;
+    overflow:hidden !important;
+  }
+
+  #weddingFilm .rings-scene .film-photo-card{
+    aspect-ratio:1 / 1 !important;
+    max-height:38vh !important;
+  }
+
+  #weddingFilm .hero-scene .film-photo-card{
+    aspect-ratio:1105 / 676 !important;
+    max-height:38vh !important;
+  }
+
+  #weddingFilm .photo-card img,
+  #weddingFilm .film-photo-card img{
+    width:100% !important;
+    height:100% !important;
+    display:block !important;
+    object-fit:cover !important;
+    object-position:center center !important;
+    border-radius:10px !important;
+  }
+
+  #weddingFilm .film-kicker,
+  #weddingFilm .family-lines{
+    position:relative !important;
+    z-index:2 !important;
+    margin:4px auto 7px !important;
+  }
+
+  #weddingFilm .rings-scene h2,
+  #weddingFilm .couple-scene h2,
+  #weddingFilm .family-scene h2,
+  #weddingFilm .hero-scene h2{
+    margin:0 auto !important;
+    max-width:100% !important;
+    font-size:clamp(28px,8.5vw,43px) !important;
+    line-height:1.04 !important;
+    text-align:center !important;
+  }
+
+  #weddingFilm .scene-caption{
+    margin:8px auto 0 !important;
+    max-width:95% !important;
+  }
+
+  /* ---- 3. KEEP BACKGROUNDS BEAUTIFUL BUT COMPLETELY STATIC ---- */
+  #weddingFilm .cinematic-world{
+    background-size:cover !important;
+    background-position:center center !important;
+    opacity:1 !important;
+  }
+
+  #weddingFilm .film-bg,
+  #weddingFilm .film-vignette{
+    transform:none !important;
+    filter:none !important;
+    animation:none !important;
+    will-change:auto !important;
+  }
+
+  /* ---- 4. REMOVE BLURRY GLASS/SHINE EFFECTS FROM CONTROLS ---- */
+  #weddingFilm .film-music-toggle,
+  .film-music-toggle{
+    backdrop-filter:none !important;
+    -webkit-backdrop-filter:none !important;
+    box-shadow:0 8px 24px rgba(0,0,0,.35) !important;
+  }
+
+  /* Avoid accidental horizontal compositing seams. */
+  #weddingFilm,
+  #weddingFilm .film-scenes,
+  #weddingFilm .film-scene{
+    overflow:hidden !important;
+    contain:layout paint !important;
+  }
+}
+
+/* Desktop: give photo scenes a deliberate gallery-card composition too,
+   without changing the cinematic background. */
+@media (min-width:601px){
+  #weddingFilm .rings-scene .scene-content,
+  #weddingFilm .couple-scene .scene-content,
+  #weddingFilm .family-scene .scene-content,
+  #weddingFilm .hero-scene .scene-content{
+    padding:16px 22px 22px !important;
+    border:1px solid rgba(245,225,180,.22) !important;
+    border-radius:24px !important;
+    background:linear-gradient(180deg,rgba(25,12,17,.42),rgba(25,12,17,.68)) !important;
+    box-shadow:0 18px 60px rgba(0,0,0,.28) !important;
+  }
+
+  #weddingFilm .rings-scene .film-photo-card,
+  #weddingFilm .couple-scene .photo-card,
+  #weddingFilm .family-scene .film-photo-card,
+  #weddingFilm .hero-scene .film-photo-card{
+    border:7px solid rgba(255,248,232,.92) !important;
+    border-radius:12px !important;
+    box-shadow:0 15px 45px rgba(0,0,0,.38) !important;
+    overflow:hidden !important;
+  }
+}
+</style>
+
 </head>
 
 <body>
@@ -3897,6 +4108,7 @@ music.addEventListener("error", function () {
     var running = false;
     var raf = 0;
     var filmSession = false;
+    var filmTimer = 0;
 
     var cuts = [5,9,17,23,29,35,40,50,55];
 
@@ -3956,6 +4168,7 @@ music.addEventListener("error", function () {
       running = false;
       filmSession = false;
       if (raf) cancelAnimationFrame(raf);
+      if (filmTimer) { clearTimeout(filmTimer); filmTimer = 0; }
 
       film.classList.remove("playing");
       film.setAttribute("aria-hidden","true");
@@ -3967,9 +4180,16 @@ music.addEventListener("error", function () {
       syncMusicButton();
     }
 
-    function frame(now) {
+    /*
+     * Mobile performance: the film has no continuous visual animation.
+     * We only need to check the scene timeline a few times per second.
+     * Using a timer instead of a 60fps requestAnimationFrame loop prevents
+     * repeated layout/compositing work and avoids mobile jitter/tearing.
+     */
+    function frame() {
       if (!running) return;
-      var elapsed = (now - startTime) / 1000;
+
+      var elapsed = (performance.now() - startTime) / 1000;
 
       if (elapsed >= total) {
         var audio = getAudio();
@@ -3983,7 +4203,7 @@ music.addEventListener("error", function () {
       }
 
       render(elapsed);
-      raf = requestAnimationFrame(frame);
+      filmTimer = setTimeout(frame, 250);
     }
 
     function play() {
@@ -4012,7 +4232,7 @@ music.addEventListener("error", function () {
       }
 
       syncMusicButton();
-      raf = requestAnimationFrame(frame);
+      frame();
     }
 
     launch.addEventListener("click", play);
